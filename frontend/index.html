@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BizForge — AI Branding Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #0d0d1a;
+      --bg2:    #1a1a2e;
+      --bg3:    #16213e;
+      --accent: #6c63ff;
+      --cyan:   #00d4ff;
+      --text:   #ffffff;
+      --dim:    rgba(255,255,255,0.65);
+      --glass:  rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.1);
+      --r:      16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body.light {
+      filter: invert(1) hue-rotate(180deg);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradShift {
+      0%   { background-position: 0%; }
+      100% { background-position: 200%; }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.8); opacity: 0.5; }
+      50%       { transform: scale(1);   opacity: 1; }
+    }
+    @keyframes orb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33%       { transform: translate(40px, -30px) scale(1.1); }
+      66%       { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      height: 64px;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,13,26,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6c63ff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-right select {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .nav-right select option {
+      background: #1a1a2e;
+      color: white;
+    }
+
+    .theme-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 6px 12px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .theme-btn:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 40%, #1a1040 0%, #0d0d1a 70%);
+      padding: 80px 40px 40px;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .orb1 {
+      width: 400px;
+      height: 400px;
+      background: #6c63ff20;
+      top: 10%;
+      left: 10%;
+      animation: orb 8s ease-in-out infinite;
+    }
+
+    .orb2 {
+      width: 350px;
+      height: 350px;
+      background: #00d4ff18;
+      top: 60%;
+      right: 10%;
+      animation: orb 10s ease-in-out infinite 2s;
+    }
+
+    .orb3 {
+      width: 300px;
+      height: 300px;
+      background: #ff6b9d15;
+      top: 40%;
+      left: 50%;
+      animation: orb 12s ease-in-out infinite 4s;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(108,99,255,0.15);
+      border: 1px solid rgba(108,99,255,0.4);
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      color: var(--dim);
+      margin-bottom: 28px;
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 0%, #6c63ff 50%, #00d4ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+
+    .hero-sub {
+      color: var(--dim);
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6c63ff, #00d4ff);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 0 30px rgba(108,99,255,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 50px rgba(108,99,255,0.6);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 16px 40px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      color: var(--dim);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 48px;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .stat-item {
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6c63ff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--dim);
+      margin-top: 4px;
+    }
+
+    /* ── FEATURES SECTION ── */
+    .features {
+      padding: 100px 40px;
+      background: var(--bg);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--dim);
+      font-size: 1.05rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 36px 28px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    .feature-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(108,99,255,0.2);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--dim);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .feature-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .feature-link:hover {
+      color: var(--cyan);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-it-works {
+      background: rgba(255,255,255,0.02);
+      padding: 80px 40px;
+    }
+
+    .steps-row {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 900px;
+      margin: 48px auto 0;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      flex: 1;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      right: -10%;
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      opacity: 0.3;
+    }
+
+    .step-num {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #6c63ff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .step h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--dim);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* ── TECH BADGES ── */
+    .tech-section {
+      padding: 60px 40px;
+      text-align: center;
+      background: var(--bg);
+    }
+
+    .tech-section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 32px;
+    }
+
+    .tech-badges {
+      display: inline-flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tech-badge {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 20px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(20px);
+    }
+
+    .tech-badge .badge-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .tech-badge .badge-desc {
+      color: var(--dim);
+      font-size: 0.8rem;
+    }
+
+    .tech-badge.ibm  { border-color: rgba(108,99,255,0.5); }
+    .tech-badge.groq { border-color: rgba(0,212,255,0.5); }
+    .tech-badge.sdxl { border-color: rgba(16,185,129,0.5); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 0.9rem;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .hero { padding: 80px 20px 40px; }
+      .hero-stats { gap: 24px; }
+      .stat-item:not(:last-child)::after { display: none; }
+      .features { padding: 60px 20px; }
+      .steps-row { flex-direction: column; gap: 32px; }
+      .step:not(:last-child)::after { display: none; }
+      .how-it-works { padding: 60px 20px; }
+      .tech-section { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🔮 BizForge</a>
+    <div class="nav-right">
+      <select id="lang-select" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="hi">हिंदी</option>
+      </select>
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">🌙</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">✦ IBM Granite × Groq LLaMA × Stable Diffusion XL</div>
+
+      <h1 class="hero-title" data-i18n="hero_title">Build Your Brand with AI</h1>
+
+      <p class="hero-sub" data-i18n="hero_sub">
+        Create stunning brand names, logos, marketing content,
+        and complete design systems in seconds.
+      </p>
+
+      <div class="hero-btns">
+        <a href="branding.html" class="btn-primary" data-i18n="get_started">Get Started →</a>
+        <a href="#features" class="btn-secondary">See Features ↓</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">10K+</span>
+          <div class="stat-label">Brands Created</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">9</span>
+          <div class="stat-label">AI Features</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">3</span>
+          <div class="stat-label">AI Models</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <div class="stat-label">Free</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <h2>Everything You Need to Build a Brand</h2>
+      <p>9 AI-powered tools. 3 enterprise models. One unified platform.</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: linear-gradient(135deg,#6c63ff,#a855f7);">🎯</div>
+        <h3>Brand Names Generator</h3>
+        <p>Generate 10-20 AI-crafted brand names with taglines, naming strategies, and industry-specific creativity.</p>
+        <a href="branding.html" class="feature-link">Explore →</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: linear-gradient(135deg,#00d4ff,#0ea5e9);">🎨</div>
+        <h3>Logo Generator</h3>
+        <p>Create professional logo concepts and real AI-generated images using Stable Diffusion XL — not just placeholders.</p>
+        <a href="branding.html" class="feature-link">Explore →</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: linear-gradient(135deg,#f43f5e,#ec4899);">📝</div>
+        <h3>Marketing Content</h3>
+        <p>Product descriptions, social posts, email campaigns, taglines, ad copy, and brand stories — on demand.</p>
+        <a href="branding.html" class="feature-link">Explore →</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: linear-gradient(135deg,#f59e0b,#f97316);">🎭</div>
+        <h3>Design System</h3>
+        <p>AI-curated 5-color palettes with HEX codes, typography pairings, mood boards, and industry-specific rationale.</p>
+        <a href="branding.html" class="feature-link">Explore →</a>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: linear-gradient(135deg,#10b981,#34d399);">💬</div>
+        <h3>Sentiment Analysis</h3>
+        <p>Deep sentiment scoring, brand-tone alignment analysis, emotional tone detection, and professional rewrites.</p>
+        <a href="branding.html" class="feature-link">Explore →</a>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="feature-card">
+        <div class="feature-icon" style="background: linear-gradient(135deg,#8b5cf6,#6c63ff);">🤖</div>
+        <h3>AI Branding Assistant</h3>
+        <p>24/7 expert brand consultant powered by IBM Granite (local) with Groq LLaMA-3.3-70B as instant fallback.</p>
+        <a href="branding.html" class="feature-link">Explore →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works">
+    <div class="section-header">
+      <h2 style="font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;">How BizForge Works</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Describe Your Business</h3>
+        <p>Enter your industry, keywords, and brand tone</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>AI Does The Heavy Lifting</h3>
+        <p>3 enterprise AI models generate your complete brand assets</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Download &amp; Launch</h3>
+        <p>Copy, download, or export everything ready to use</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH BADGES -->
+  <section class="tech-section">
+    <h2>Powered by Enterprise AI</h2>
+    <div class="tech-badges">
+      <div class="tech-badge ibm">
+        <span class="badge-name">🔷 IBM Granite 4.0</span>
+        <span class="badge-desc">Local AI Chatbot</span>
+      </div>
+      <div class="tech-badge groq">
+        <span class="badge-name">⚡ Groq LLaMA-3.3-70B</span>
+        <span class="badge-desc">Sub-50ms Generation</span>
+      </div>
+      <div class="tech-badge sdxl">
+        <span class="badge-name">🎨 Stable Diffusion XL</span>
+        <span class="badge-desc">Logo Image Creation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 BizForge — Powered by IBM Granite, Groq AI &amp; SDXL</p>
+  </footer>
+
+  <!-- i18n script -->
+  <script src="static/i18n.js"></script>
+
+  <script>
+    // ── Theme Toggle ──
+    let darkMode = true;
+    function toggleTheme() {
+      darkMode = !darkMode;
+      document.body.classList.toggle('light', !darkMode);
+      document.getElementById('theme-btn').textContent = darkMode ? '🌙' : '☀';
+    }
+
+    // ── Language Change ──
+    function changeLanguage(lang) {
+      localStorage.setItem('lang', lang);
+      if (typeof translations !== 'undefined') {
+        const t = translations[lang] || translations.en;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (t[key]) el.textContent = t[key];
+        });
+      }
+    }
+
+    // ── Intersection Observer for feature cards ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.feature-card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // ── Init language ──
+    document.addEventListener('DOMContentLoaded', () => {
+      const lang = localStorage.getItem('lang') || 'en';
+      document.getElementById('lang-select').value = lang;
+      changeLanguage(lang);
+    });
+  </script>
+</body>
+</html>
