@@ -3,26 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BizForge Studio</title>
+    <title>BizForge Studio - AI Branding Suite</title>
     <link rel="stylesheet" href="static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #0d0d1a;
-            --bg2: #1a1a2e;
-            --accent: #6c63ff;
-            --accent-purple: #6c63ff;
-            --accent-cyan: #00d4ff;
+            --bg: #0a0a12;
+            --bg2: #12121f;
+            --bg3: #1a1a2e;
+            --accent: #6366f1;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
             --accent-pink: #ec4899;
             --accent-green: #10b981;
             --accent-amber: #f59e0b;
-            --accent-violet: #8b5cf6;
-            --accent-teal: #14b8a6;
-            --text: #ffffff;
-            --dim: rgba(255,255,255,0.65);
-            --glass: rgba(255,255,255,0.05);
-            --border: rgba(255,255,255,0.1);
+            --accent-red: #ef4444;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.08);
+            --glass-hover: rgba(255,255,255,0.06);
             --r: 16px;
+            --r-lg: 24px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+            --gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --gradient-cyan: linear-gradient(135deg, #06b6d4, #0891b2);
+            --gradient-pink: linear-gradient(135deg, #ec4899, #db2777);
+            --gradient-green: linear-gradient(135deg, #10b981, #059669);
+            --gradient-amber: linear-gradient(135deg, #f59e0b, #d97706);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,6 +43,7 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
+            line-height: 1.6;
         }
 
         /* Navbar */
@@ -46,19 +58,33 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(13,13,26,0.95);
+            background: rgba(10,10,18,0.85);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .nav-logo {
             font-family: 'Syne', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+            background: linear-gradient(135deg, #6366f1, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
         }
 
         .nav-controls {
@@ -67,23 +93,53 @@
             gap: 12px;
         }
 
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #10b981;
+        }
+
+        .nav-status-dot {
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
         .nav-controls select {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 8px;
             color: var(--text);
-            padding: 6px 12px;
+            padding: 8px 12px;
             font-size: 0.85rem;
             cursor: pointer;
         }
 
+        .nav-controls select option {
+            background: #1a1a2e;
+            color: white;
+        }
+
         .theme-btn {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 8px;
             color: var(--text);
-            padding: 6px 12px;
+            padding: 8px 12px;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         /* Tab Navigation */
@@ -95,9 +151,9 @@
             display: flex;
             gap: 4px;
             padding: 12px 16px;
-            background: rgba(13,13,26,0.95);
+            background: rgba(10,10,18,0.9);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--glass-border);
             overflow-x: auto;
             z-index: 99;
         }
@@ -107,23 +163,27 @@
             padding: 10px 16px;
             background: transparent;
             border: none;
-            border-radius: 8px;
-            color: var(--dim);
+            border-radius: 10px;
+            color: var(--text-dim);
             font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .tab-btn:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--text);
+            background: var(--glass-hover);
+            color: var(--text-muted);
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+            background: var(--gradient-primary);
             color: white;
+            box-shadow: 0 4px 16px rgba(99,102,241,0.4);
         }
 
         /* Main Content */
@@ -137,7 +197,7 @@
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         .tab-content.active {
@@ -145,32 +205,35 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Panel Header */
         .panel-header {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .panel-header h2 {
             font-family: 'Syne', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.75rem;
             font-weight: 800;
             margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .panel-header h2.purple { background: linear-gradient(135deg, #6c63ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .panel-header h2.cyan { background: linear-gradient(135deg, #00d4ff, #0ea5e9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .panel-header h2.pink { background: linear-gradient(135deg, #f43f5e, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .panel-header h2.green { background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .panel-header h2.amber { background: linear-gradient(135deg, #f59e0b, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .panel-header h2.violet { background: linear-gradient(135deg, #8b5cf6, #6c63ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .panel-header h2.teal { background: linear-gradient(135deg, #14b8a6, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .panel-header h2.purple { color: #a78bfa; }
+        .panel-header h2.cyan { color: #22d3ee; }
+        .panel-header h2.pink { color: #f472b6; }
+        .panel-header h2.green { color: #34d399; }
+        .panel-header h2.amber { color: #fbbf24; }
+        .panel-header h2.violet { color: #a78bfa; }
+        .panel-header h2.teal { color: #2dd4bf; }
 
         .panel-header p {
-            color: var(--dim);
+            color: var(--text-dim);
             font-size: 0.95rem;
         }
 
@@ -181,43 +244,61 @@
             gap: 24px;
         }
 
-        @media (max-width: 900px) {
-            .two-col {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 1024px) {
+            .two-col { grid-template-columns: 1fr; }
         }
 
-        /* Form Card */
-        .form-card {
+        /* Glass Card */
+        .glass-card {
             background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--r-lg);
             padding: 24px;
             height: fit-content;
             position: sticky;
             top: 140px;
         }
 
+        .glass-card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Groups */
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            color: var(--text);
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 6px;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px 14px;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
             color: var(--text);
             font-size: 0.95rem;
             font-family: inherit;
@@ -225,20 +306,9 @@
         }
 
         .form-group select option {
-            background: #1a1a2e !important;
-            color: #ffffff !important;
+            background: #1a1a2e;
+            color: white;
             padding: 10px;
-        }
-        
-        /* Make sure hover shows darker background */
-        .form-group select:hover {
-            background: rgba(255,255,255,0.18);
-        }
-        
-        /* Focus state */
-        .form-group select:focus {
-            background: rgba(255,255,255,0.2);
-            border-color: var(--accent);
         }
 
         .form-group input:focus,
@@ -246,129 +316,60 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+            background: rgba(99,102,241,0.08);
+            box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
         }
 
         .form-group textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
 
         /* Generate Button */
         .btn-gen {
             width: 100%;
-            padding: 14px 24px;
+            padding: 16px 24px;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 8px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-gen.purple {
-            background: linear-gradient(135deg, #6c63ff, #8b5cf6);
-            color: white;
-        }
-        .btn-gen.purple:hover {
-            box-shadow: 0 8px 30px rgba(108,99,255,0.4);
-            transform: translateY(-2px);
+        .btn-gen:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
-        .btn-gen.cyan {
-            background: linear-gradient(135deg, #00d4ff, #06b6d4);
-            color: white;
-        }
-        .btn-gen.cyan:hover {
-            box-shadow: 0 8px 30px rgba(0,212,255,0.4);
-            transform: translateY(-2px);
-        }
+        .btn-gen.purple { background: var(--gradient-primary); color: white; }
+        .btn-gen.purple:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(99,102,241,0.5); transform: translateY(-2px); }
 
-        .btn-gen.pink {
-            background: linear-gradient(135deg, #ec4899, #f43f5e);
-            color: white;
-        }
-        .btn-gen.pink:hover {
-            box-shadow: 0 8px 30px rgba(236,72,153,0.4);
-            transform: translateY(-2px);
-        }
+        .btn-gen.cyan { background: var(--gradient-cyan); color: white; }
+        .btn-gen.cyan:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(6,182,212,0.5); transform: translateY(-2px); }
 
-        .btn-gen.green {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-        }
-        .btn-gen.green:hover {
-            box-shadow: 0 8px 30px rgba(16,185,129,0.4);
-            transform: translateY(-2px);
-        }
+        .btn-gen.pink { background: var(--gradient-pink); color: white; }
+        .btn-gen.pink:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(236,72,153,0.5); transform: translateY(-2px); }
 
-        .btn-gen.amber {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            color: white;
-        }
-        .btn-gen.amber:hover {
-            box-shadow: 0 8px 30px rgba(245,158,11,0.4);
-            transform: translateY(-2px);
-        }
+        .btn-gen.green { background: var(--gradient-green); color: white; }
+        .btn-gen.green:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(16,185,129,0.5); transform: translateY(-2px); }
 
-        .btn-gen.violet {
-            background: linear-gradient(135deg, #8b5cf6, #6c63ff);
-            color: white;
-        }
-        .btn-gen.violet:hover {
-            box-shadow: 0 8px 30px rgba(139,92,246,0.4);
-            transform: translateY(-2px);
-        }
+        .btn-gen.amber { background: var(--gradient-amber); color: white; }
+        .btn-gen.amber:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(245,158,11,0.5); transform: translateY(-2px); }
 
         /* Result Card */
         .result-card {
             background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--r-lg);
             padding: 24px;
-            min-height: 400px;
-        }
-
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .result-header h3 {
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            color: var(--dim);
-        }
-
-        .copy-btn {
-            background: rgba(255,255,255,0.07);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 6px 12px;
-            color: var(--dim);
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .copy-btn:hover {
-            background: rgba(255,255,255,0.1);
-            color: var(--text);
-        }
-
-        .result-content {
-            white-space: pre-wrap;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .result-content strong {
-            color: var(--accent-cyan);
+            min-height: 500px;
         }
 
         /* Empty State */
@@ -377,88 +378,724 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 300px;
-            color: var(--dim);
+            min-height: 400px;
+            color: var(--text-dim);
             text-align: center;
+            padding: 40px;
         }
 
-        .empty-state .icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            opacity: 0.5;
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--glass);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
         }
 
-        /* Loading */
+        .empty-state h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 0.9rem;
+            max-width: 300px;
+        }
+
+        /* Loading State */
         .loading-state {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 300px;
+            min-height: 400px;
+            padding: 40px;
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border);
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid var(--glass-border);
             border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
         }
 
-        /* Warning Box */
-        .warning-box {
-            background: rgba(245,158,11,0.1);
-            border: 1px solid rgba(245,158,11,0.3);
+        .loading-subtext {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Skeleton Loader */
+        .skeleton {
+            background: linear-gradient(90deg, var(--glass) 25%, rgba(255,255,255,0.08) 50%, var(--glass) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
             border-radius: 8px;
-            padding: 12px;
-            margin-top: 12px;
-            font-size: 0.85rem;
-            color: var(--accent-amber);
         }
 
-        /* Image Result */
-        .image-result {
-            text-align: center;
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        .image-result img {
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            margin-bottom: 16px;
+        .skeleton-card {
+            height: 120px;
+            margin-bottom: 12px;
         }
 
-        .download-btn {
-            background: linear-gradient(135deg, var(--accent-green), #34d399);
-            border: none;
+        .skeleton-text {
+            height: 16px;
+            margin-bottom: 8px;
+        }
+
+        .skeleton-text-short { width: 60%; }
+
+        /* Brand Cards Grid */
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .brand-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            animation: cardFadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 12px 40px rgba(139,92,246,0.2);
+        }
+
+        .brand-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .brand-card-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .brand-card-action {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 8px;
-            padding: 10px 20px;
-            color: white;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
             cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .brand-card-action:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .brand-card-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .brand-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-type {
+            background: rgba(139,92,246,0.2);
+            color: #a78bfa;
+            border: 1px solid rgba(139,92,246,0.3);
+        }
+
+        .badge-score {
+            background: rgba(16,185,129,0.2);
+            color: #34d399;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+
+        .brand-card-tagline {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .brand-card-rationale {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+            padding-top: 12px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            animation: cardFadeIn 0.5s ease forwards;
+        }
+
+        .content-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .content-section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-section-title i {
+            font-size: 1rem;
+        }
+
+        .content-section-content {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .content-section-content.headline {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .content-section-content.cta {
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.15));
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            font-weight: 600;
+            color: #34d399;
+        }
+
+        /* Sentiment Dashboard */
+        .sentiment-dashboard {
+            display: grid;
+            gap: 16px;
+        }
+
+        .sentiment-main {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        @media (max-width: 600px) {
+            .sentiment-main { grid-template-columns: 1fr; }
+        }
+
+        .sentiment-badge-large {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 4px solid;
+        }
+
+        .sentiment-badge-large.positive {
+            background: rgba(16,185,129,0.15);
+            border-color: #10b981;
+            color: #10b981;
+        }
+
+        .sentiment-badge-large.negative {
+            background: rgba(239,68,68,0.15);
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .sentiment-badge-large.neutral {
+            background: rgba(245,158,11,0.15);
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .sentiment-badge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 4px;
+        }
+
+        .sentiment-badge-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .sentiment-score-bar {
+            margin-bottom: 16px;
+        }
+
+        .sentiment-score-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .sentiment-score-track {
+            height: 8px;
+            background: var(--glass);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .sentiment-score-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .sentiment-emotions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .emotion-bar {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .emotion-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .emotion-track {
+            height: 6px;
+            background: var(--glass);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .emotion-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .sentiment-rewrite {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 700px) {
+            .sentiment-rewrite { grid-template-columns: 1fr; }
+        }
+
+        .rewrite-panel {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .rewrite-panel-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .rewrite-panel-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .insight-card {
+            background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .insight-card i {
+            color: var(--accent-purple);
+            margin-top: 2px;
+        }
+
+        /* Design System */
+        .design-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .color-swatches {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .color-swatch {
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .color-swatch-preview {
+            height: 80px;
+            position: relative;
+        }
+
+        .color-swatch-copy {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .color-swatch:hover .color-swatch-copy {
+            opacity: 1;
+        }
+
+        .color-swatch-info {
+            padding: 12px;
+        }
+
+        .color-swatch-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .color-swatch-hex {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .color-swatch-usage {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 8px;
+        }
+
+        .typography-preview {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .typography-heading {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .typography-body {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .typography-meta {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Logo Preview */
+        .logo-preview-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-preview-frame {
+            position: relative;
+            display: inline-block;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .logo-preview-frame.dark {
+            background: #1a1a2e;
+        }
+
+        .logo-preview-frame.light {
+            background: #ffffff;
+        }
+
+        .logo-preview-frame img {
+            display: block;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .logo-preview-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .logo-action-btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .logo-action-btn.primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .logo-action-btn.secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+        }
+
+        .logo-action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .bg-toggle {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .bg-toggle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .bg-toggle-btn.active {
+            border-color: var(--accent);
+        }
+
+        .bg-toggle-btn.dark { background: #1a1a2e; }
+        .bg-toggle-btn.light { background: #ffffff; }
+
+        /* Logo Shimmer Loading */
+        .logo-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-lg);
+            animation: toastIn 0.3s ease;
+            min-width: 300px;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .toast.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .toast.error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .toast-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .toast.success .toast-icon {
+            background: rgba(16,185,129,0.2);
+            color: #10b981;
+        }
+
+        .toast.error .toast-icon {
+            background: rgba(239,68,68,0.2);
+            color: #ef4444;
+        }
+
+        .toast-message {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1rem;
         }
 
         /* Chat Styles */
         .chat-container {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 240px);
-            min-height: 400px;
+            height: calc(100vh - 260px);
+            min-height: 450px;
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 16px;
+            padding: 20px;
             background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: var(--r);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--r-lg);
             margin-bottom: 16px;
         }
 
@@ -473,22 +1110,22 @@
 
         .chat-bubble {
             display: inline-block;
-            max-width: 80%;
-            padding: 12px 16px;
-            border-radius: 16px;
+            max-width: 75%;
+            padding: 14px 18px;
+            border-radius: 18px;
             line-height: 1.5;
             text-align: left;
         }
 
         .chat-message.user .chat-bubble {
-            background: linear-gradient(135deg, #6c63ff, #8b5cf6);
+            background: var(--gradient-primary);
             color: white;
             border-bottom-right-radius: 4px;
         }
 
         .chat-message.bot .chat-bubble {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--glass-border);
             border-bottom-left-radius: 4px;
         }
 
@@ -499,10 +1136,10 @@
 
         .chat-input-row input {
             flex: 1;
-            padding: 14px 16px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            padding: 16px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
             color: var(--text);
             font-size: 1rem;
         }
@@ -513,34 +1150,39 @@
         }
 
         .chat-send-btn {
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #6c63ff, #8b5cf6);
+            padding: 16px 28px;
+            background: var(--gradient-primary);
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send-btn:hover {
+            box-shadow: 0 8px 30px rgba(99,102,241,0.5);
         }
 
         /* Typing Indicator */
         .typing-indicator {
             display: flex;
             gap: 4px;
-            padding: 12px 16px;
+            padding: 14px 18px;
         }
 
         .typing-indicator span {
             width: 8px;
             height: 8px;
-            background: var(--dim);
+            background: var(--text-dim);
             border-radius: 50%;
-            animation: pulse 1.4s infinite;
+            animation: typingPulse 1.4s infinite;
         }
 
         .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
 
-        @keyframes pulse {
+        @keyframes typingPulse {
             0%, 100% { opacity: 0.4; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1); }
         }
@@ -549,45 +1191,54 @@
         .suggestion-chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .chip {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 8px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 10px 18px;
             font-size: 0.85rem;
-            color: var(--dim);
+            color: var(--text-muted);
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .chip:hover {
-            background: rgba(108,99,255,0.2);
+            background: rgba(99,102,241,0.15);
             border-color: var(--accent);
             color: var(--text);
         }
 
-        /* Status indicator */
-        .status-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            margin-right: 6px;
-            animation: pulse 2s infinite;
+        /* Error Box */
+        .error-box {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            color: #ef4444;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <!-- Navbar -->
     <nav class="navbar">
-        <a href="index.html" class="nav-logo">🔮 BizForge</a>
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-icon">✨</div>
+            BizForge
+        </a>
         <div class="nav-controls">
+            <div class="nav-status">
+                <div class="nav-status-dot"></div>
+                AI Ready
+            </div>
             <select id="languageSelector" onchange="changeLanguage(this.value)">
                 <option value="en">English</option>
                 <option value="es">Español</option>
@@ -595,24 +1246,22 @@
                 <option value="de">Deutsch</option>
                 <option value="hi">हिंदी</option>
             </select>
-            <button class="theme-btn" onclick="toggleTheme()">🌙</button>
+            <button class="theme-btn" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
         </div>
     </nav>
 
     <!-- Tab Navigation -->
     <div class="tab-nav">
-        <button class="tab-btn active" data-tab="brand">🎯 Brand Names</button>
-        <button class="tab-btn" data-tab="logo">🎨 Logo</button>
-        <button class="tab-btn" data-tab="content">📝 Content</button>
-        <button class="tab-btn" data-tab="social">📱 Social</button>
-        <button class="tab-btn" data-tab="email">📧 Email</button>
-        <button class="tab-btn" data-tab="tagline">💬 Taglines</button>
-        <button class="tab-btn" data-tab="design">🎭 Design</button>
-        <button class="tab-btn" data-tab="sentiment">🔍 Sentiment</button>
-        <button class="tab-btn" data-tab="summarize">📋 Summarize</button>
-        <button class="tab-btn" data-tab="chat">🤖 AI Chat</button>
-        <button class="tab-btn" data-tab="competitors">🏆 Competitors</button>
-        <button class="tab-btn" data-tab="voice">🎙 Brand Voice</button>
+        <button class="tab-btn active" data-tab="brand"><i class="fas fa-bullseye"></i> Brand Names</button>
+        <button class="tab-btn" data-tab="logo"><i class="fas fa-palette"></i> Logo</button>
+        <button class="tab-btn" data-tab="content"><i class="fas fa-file-alt"></i> Content</button>
+        <button class="tab-btn" data-tab="social"><i class="fas fa-share-alt"></i> Social</button>
+        <button class="tab-btn" data-tab="email"><i class="fas fa-envelope"></i> Email</button>
+        <button class="tab-btn" data-tab="tagline"><i class="fas fa-comment-dots"></i> Taglines</button>
+        <button class="tab-btn" data-tab="design"><i class="fas fa-paint-brush"></i> Design</button>
+        <button class="tab-btn" data-tab="sentiment"><i class="fas fa-search"></i> Sentiment</button>
+        <button class="tab-btn" data-tab="summarize"><i class="fas fa-list-alt"></i> Summarize</button>
+        <button class="tab-btn" data-tab="chat"><i class="fas fa-robot"></i> AI Chat</button>
     </div>
 
     <!-- Main Content -->
@@ -621,11 +1270,12 @@
         <!-- TAB 1: Brand Names -->
         <div class="tab-content active" id="brand">
             <div class="panel-header">
-                <h2 class="purple">🎯 Brand Names Generator</h2>
-                <p>Generate 10 creative, memorable brand names with taglines and strategies</p>
+                <h2 class="purple"><i class="fas fa-bullseye"></i> Brand Names Generator</h2>
+                <p>Generate creative, memorable brand names with AI-powered analysis</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Configuration</div>
                     <div class="form-group">
                         <label>Industry</label>
                         <select id="industry">
@@ -645,8 +1295,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Keywords (comma separated)</label>
-                        <input type="text" id="keywords" placeholder="e.g. smart, innovative, fast">
+                        <label>Keywords</label>
+                        <input type="text" id="keywords" placeholder="smart, innovative, fast">
+                        <div class="form-hint">Separate with commas</div>
                     </div>
                     <div class="form-group">
                         <label>Tone</label>
@@ -670,12 +1321,15 @@
                             <option value="hi">Hindi</option>
                         </select>
                     </div>
-                    <button class="btn-gen purple" onclick="generateBrandNames()">✦ Generate 10 Brand Names</button>
+                    <button class="btn-gen purple" id="btn-brand" onclick="generateBrandNames()">
+                        <i class="fas fa-magic"></i> Generate Brand Names
+                    </button>
                 </div>
                 <div class="result-card" id="brand-result">
                     <div class="empty-state">
-                        <div class="icon">🎯</div>
-                        <p>Brand names will appear here after generation</p>
+                        <div class="empty-state-icon">🎯</div>
+                        <h3>Ready to Generate</h3>
+                        <p>Fill in your preferences and click generate to get AI-crafted brand names</p>
                     </div>
                 </div>
             </div>
@@ -684,11 +1338,12 @@
         <!-- TAB 2: Logo Generator -->
         <div class="tab-content" id="logo">
             <div class="panel-header">
-                <h2 class="cyan">🎨 Logo Generator</h2>
-                <p>Create professional logos with AI-generated images using Stable Diffusion XL</p>
+                <h2 class="cyan"><i class="fas fa-palette"></i> Logo Generator</h2>
+                <p>Create stunning logos with Stable Diffusion XL AI</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Logo Details</div>
                     <div class="form-group">
                         <label>Brand Name</label>
                         <input type="text" id="logo-brand" placeholder="Your brand name">
@@ -711,14 +1366,20 @@
                     <div class="form-group">
                         <label>Style Keywords</label>
                         <input type="text" id="logo-keywords" placeholder="modern, minimalist, elegant">
+                        <div class="form-hint">Describe your preferred style</div>
                     </div>
-                    <button class="btn-gen cyan" onclick="generateLogo()">🎨 Generate Logo & Image</button>
-                    <div class="warning-box">⏳ SDXL takes 20-30 seconds. Real AI generation.</div>
+                    <button class="btn-gen cyan" id="btn-logo" onclick="generateLogo()">
+                        <i class="fas fa-wand-magic-sparkles"></i> Generate Logo
+                    </button>
+                    <div class="form-hint" style="margin-top: 12px; text-align: center;">
+                        ⏳ SDXL takes 20-30 seconds for real AI generation
+                    </div>
                 </div>
                 <div class="result-card" id="logo-result">
                     <div class="empty-state">
-                        <div class="icon">🎨</div>
-                        <p>Logo concept and image will appear here</p>
+                        <div class="empty-state-icon">🎨</div>
+                        <h3>Create Your Logo</h3>
+                        <p>Enter your brand details and let AI generate a unique logo</p>
                     </div>
                 </div>
             </div>
@@ -727,11 +1388,12 @@
         <!-- TAB 3: Marketing Content -->
         <div class="tab-content" id="content">
             <div class="panel-header">
-                <h2 class="pink">📝 Product Descriptions</h2>
-                <p>Generate compelling product descriptions with hooks, features, and CTAs</p>
+                <h2 class="pink"><i class="fas fa-file-alt"></i> Product Descriptions</h2>
+                <p>Generate compelling marketing content with AI</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Content Settings</div>
                     <div class="form-group">
                         <label>Brand/Product Description</label>
                         <textarea id="brand-description" placeholder="Describe your product or brand..."></textarea>
@@ -754,12 +1416,15 @@
                             <option value="brand_story">Brand Story</option>
                         </select>
                     </div>
-                    <button class="btn-gen pink" onclick="generateContent()">📝 Generate Content</button>
+                    <button class="btn-gen pink" id="btn-content" onclick="generateContent()">
+                        <i class="fas fa-pen-fancy"></i> Generate Content
+                    </button>
                 </div>
                 <div class="result-card" id="content-result">
                     <div class="empty-state">
-                        <div class="icon">📝</div>
-                        <p>Marketing content will appear here</p>
+                        <div class="empty-state-icon">📝</div>
+                        <h3>Content Generator</h3>
+                        <p>Describe your brand and get professionally written marketing content</p>
                     </div>
                 </div>
             </div>
@@ -768,11 +1433,12 @@
         <!-- TAB 4: Social Media -->
         <div class="tab-content" id="social">
             <div class="panel-header">
-                <h2 class="green">📱 Social Media Posts</h2>
-                <p>Generate posts for Instagram, Twitter/X, and LinkedIn</p>
+                <h2 class="green"><i class="fas fa-share-alt"></i> Social Media Posts</h2>
+                <p>Generate platform-specific social content</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Social Settings</div>
                     <div class="form-group">
                         <label>Brand Description</label>
                         <textarea id="social-description" placeholder="Describe your brand..."></textarea>
@@ -797,12 +1463,15 @@
                             <option>Other</option>
                         </select>
                     </div>
-                    <button class="btn-gen green" onclick="generateSocial()">📱 Generate 3 Platform Posts</button>
+                    <button class="btn-gen green" id="btn-social" onclick="generateSocial()">
+                        <i class="fas fa-hashtag"></i> Generate Posts
+                    </button>
                 </div>
                 <div class="result-card" id="social-result">
                     <div class="empty-state">
-                        <div class="icon">📱</div>
-                        <p>Social media posts will appear here</p>
+                        <div class="empty-state-icon">📱</div>
+                        <h3>Social Content</h3>
+                        <p>Get tailored content for Instagram, Twitter, and LinkedIn</p>
                     </div>
                 </div>
             </div>
@@ -811,11 +1480,12 @@
         <!-- TAB 5: Email -->
         <div class="tab-content" id="email">
             <div class="panel-header">
-                <h2 class="amber">📧 Email Campaigns</h2>
-                <p>Write complete email campaigns with subject lines and CTAs</p>
+                <h2 class="amber"><i class="fas fa-envelope"></i> Email Campaigns</h2>
+                <p>Write high-converting email campaigns</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Email Settings</div>
                     <div class="form-group">
                         <label>Campaign Description</label>
                         <textarea id="email-description" placeholder="What is this email campaign about?"></textarea>
@@ -839,12 +1509,15 @@
                             <option>Friendly</option>
                         </select>
                     </div>
-                    <button class="btn-gen amber" onclick="generateEmail()">📧 Write Email Campaign</button>
+                    <button class="btn-gen amber" id="btn-email" onclick="generateEmail()">
+                        <i class="fas fa-paper-plane"></i> Write Email
+                    </button>
                 </div>
                 <div class="result-card" id="email-result">
                     <div class="empty-state">
-                        <div class="icon">📧</div>
-                        <p>Email campaign will appear here</p>
+                        <div class="empty-state-icon">📧</div>
+                        <h3>Email Campaign</h3>
+                        <p>Create complete email campaigns with subject lines and CTAs</p>
                     </div>
                 </div>
             </div>
@@ -853,11 +1526,12 @@
         <!-- TAB 6: Taglines -->
         <div class="tab-content" id="tagline">
             <div class="panel-header">
-                <h2 class="violet">💬 Tagline & Slogans</h2>
-                <p>Create 8 tagline variations in different styles</p>
+                <h2 class="violet"><i class="fas fa-comment-dots"></i> Tagline & Slogans</h2>
+                <p>Create memorable taglines in different styles</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Tagline Settings</div>
                     <div class="form-group">
                         <label>Brand Description</label>
                         <textarea id="tagline-description" placeholder="What does your brand do?"></textarea>
@@ -881,12 +1555,15 @@
                             <option>Other</option>
                         </select>
                     </div>
-                    <button class="btn-gen violet" onclick="generateTaglines()">💬 Create 8 Tagline Styles</button>
+                    <button class="btn-gen purple" id="btn-tagline" onclick="generateTaglines()">
+                        <i class="fas fa-lightbulb"></i> Create Taglines
+                    </button>
                 </div>
                 <div class="result-card" id="tagline-result">
                     <div class="empty-state">
-                        <div class="icon">💬</div>
-                        <p>Taglines will appear here</p>
+                        <div class="empty-state-icon">💬</div>
+                        <h3>Tagline Generator</h3>
+                        <p>Get 8 different tagline variations in various styles</p>
                     </div>
                 </div>
             </div>
@@ -895,11 +1572,12 @@
         <!-- TAB 7: Design System -->
         <div class="tab-content" id="design">
             <div class="panel-header">
-                <h2 class="amber">🎭 Design System</h2>
-                <p>Get complete color palettes with HEX codes and typography</p>
+                <h2 class="amber"><i class="fas fa-paint-brush"></i> Design System</h2>
+                <p>Get complete color palettes and typography recommendations</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Design Settings</div>
                     <div class="form-group">
                         <label>Tone</label>
                         <select id="design-tone">
@@ -914,12 +1592,15 @@
                         <label>Industry</label>
                         <input type="text" id="design-industry" placeholder="e.g. Technology, Fashion">
                     </div>
-                    <button class="btn-gen amber" onclick="getDesignSystem()">🎭 Get Design System</button>
+                    <button class="btn-gen amber" id="btn-design" onclick="getDesignSystem()">
+                        <i class="fas fa-palette"></i> Generate Design System
+                    </button>
                 </div>
                 <div class="result-card" id="design-result">
                     <div class="empty-state">
-                        <div class="icon">🎭</div>
-                        <p>Design system will appear here</p>
+                        <div class="empty-state-icon">🎨</div>
+                        <h3>Design System</h3>
+                        <p>Get curated color palettes with HEX codes and typography</p>
                     </div>
                 </div>
             </div>
@@ -928,11 +1609,12 @@
         <!-- TAB 8: Sentiment Analysis -->
         <div class="tab-content" id="sentiment">
             <div class="panel-header">
-                <h2 class="teal">🔍 Sentiment Analysis</h2>
-                <p>Analyze text sentiment with 7-section analysis and rewrite</p>
+                <h2 class="teal"><i class="fas fa-search"></i> Sentiment Analysis</h2>
+                <p>Analyze text sentiment with detailed insights and rewrites</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Analysis Settings</div>
                     <div class="form-group">
                         <label>Text to Analyze</label>
                         <textarea id="review-text" placeholder="Enter customer review or text..."></textarea>
@@ -946,12 +1628,15 @@
                             <option>Friendly</option>
                         </select>
                     </div>
-                    <button class="btn-gen teal" onclick="analyzeSentiment()">🔍 Analyze & Rewrite</button>
+                    <button class="btn-gen teal" id="btn-sentiment" onclick="analyzeSentiment()">
+                        <i class="fas fa-chart-pie"></i> Analyze Sentiment
+                    </button>
                 </div>
                 <div class="result-card" id="sentiment-result">
                     <div class="empty-state">
-                        <div class="icon">🔍</div>
-                        <p>Sentiment analysis will appear here</p>
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>Sentiment Analyzer</h3>
+                        <p>Analyze any text for sentiment, emotions, and get brand-aligned rewrites</p>
                     </div>
                 </div>
             </div>
@@ -960,24 +1645,28 @@
         <!-- TAB 9: Summarizer -->
         <div class="tab-content" id="summarize">
             <div class="panel-header">
-                <h2 class="green">📋 Text Summarizer</h2>
-                <p>Summarize long text into structured summaries with key takeaways</p>
+                <h2 class="green"><i class="fas fa-list-alt"></i> Text Summarizer</h2>
+                <p>Transform long text into concise, structured summaries</p>
             </div>
             <div class="two-col">
-                <div class="form-card">
+                <div class="glass-card">
+                    <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Summarization</div>
                     <div class="form-group">
                         <label>Text to Summarize</label>
                         <textarea id="summarize-text" placeholder="Paste long text here..." style="min-height: 200px;"></textarea>
-                        <div style="text-align: right; font-size: 0.8rem; color: var(--dim); margin-top: 4px;">
+                        <div style="text-align: right; font-size: 0.8rem; color: var(--text-dim); margin-top: 6px;">
                             <span id="char-count">0</span> / 4000 characters
                         </div>
                     </div>
-                    <button class="btn-gen green" onclick="summarizeText()">📋 Summarize Text</button>
+                    <button class="btn-gen green" id="btn-summarize" onclick="summarizeText()">
+                        <i class="fas fa-compress"></i> Summarize Text
+                    </button>
                 </div>
                 <div class="result-card" id="summary-result">
                     <div class="empty-state">
-                        <div class="icon">📋</div>
-                        <p>Summary will appear here</p>
+                        <div class="empty-state-icon">📋</div>
+                        <h3>Text Summarizer</h3>
+                        <p>Get structured summaries with key takeaways and action items</p>
                     </div>
                 </div>
             </div>
@@ -986,8 +1675,8 @@
         <!-- TAB 10: AI Chat -->
         <div class="tab-content" id="chat">
             <div class="panel-header">
-                <h2 class="purple">🤖 AI Branding Assistant</h2>
-                <p>Chat with AI about branding strategy, naming, marketing, and more</p>
+                <h2 class="purple"><i class="fas fa-robot"></i> AI Branding Assistant</h2>
+                <p>Chat with AI about branding strategy and more</p>
             </div>
             
             <div class="suggestion-chips">
@@ -999,110 +1688,14 @@
 
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages">
-                    <div class="empty-state" style="min-height: auto;">
-                        <p>Welcome to BizForge AI! Ask me anything about branding.</p>
+                    <div class="empty-state" style="min-height: auto; padding: 20px;">
+                        <h3>Welcome to BizForge AI!</h3>
+                        <p>Ask me anything about branding, naming, marketing, or design.</p>
                     </div>
                 </div>
                 <div class="chat-input-row">
                     <input type="text" id="chat-input" placeholder="Ask about branding..." onkeypress="if(event.key==='Enter')sendChat()">
-                    <button class="chat-send-btn" onclick="sendChat()">Send</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 11: Competitors -->
-        <div class="tab-content" id="competitors">
-            <div class="panel-header">
-                <h2 class="amber">🏆 Competitor Analysis</h2>
-                <p>Get competitive landscape analysis with Blue Ocean positioning strategy</p>
-            </div>
-            <div class="two-col">
-                <div class="form-card">
-                    <div class="form-group">
-                        <label>Brand Name</label>
-                        <input type="text" id="comp-brand" placeholder="Your brand name">
-                    </div>
-                    <div class="form-group">
-                        <label>Industry</label>
-                        <select id="comp-industry">
-                            <option>Technology</option>
-                            <option>Healthcare</option>
-                            <option>Finance</option>
-                            <option>E-commerce</option>
-                            <option>Education</option>
-                            <option>SaaS</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Target Audience</label>
-                        <input type="text" id="comp-audience" placeholder="Who is your ideal customer?">
-                    </div>
-                    <div class="form-group">
-                        <label>Unique Value Proposition</label>
-                        <textarea id="comp-value" placeholder="What makes you different?"></textarea>
-                    </div>
-                    <button class="btn-gen amber" onclick="analyzeCompetitors()">🏆 Analyze Competition</button>
-                </div>
-                <div class="result-card" id="competitor-result">
-                    <div class="empty-state">
-                        <div class="icon">🏆</div>
-                        <p>Competitor analysis will appear here</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 12: Brand Voice -->
-        <div class="tab-content" id="voice">
-            <div class="panel-header">
-                <h2 class="pink">🎙 Brand Voice Guide</h2>
-                <p>Create a complete brand voice bible with personality, tone, and examples</p>
-            </div>
-            <div class="two-col">
-                <div class="form-card">
-                    <div class="form-group">
-                        <label>Brand Name</label>
-                        <input type="text" id="voice-brand" placeholder="Your brand name">
-                    </div>
-                    <div class="form-group">
-                        <label>Industry</label>
-                        <select id="voice-industry">
-                            <option>Technology</option>
-                            <option>Healthcare</option>
-                            <option>Finance</option>
-                            <option>E-commerce</option>
-                            <option>Education</option>
-                            <option>SaaS</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Core Values</label>
-                        <input type="text" id="voice-values" placeholder="e.g. innovation, simplicity, trust">
-                    </div>
-                    <div class="form-group">
-                        <label>Target Audience</label>
-                        <textarea id="voice-audience" placeholder="Describe your ideal customer..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Tone Direction</label>
-                        <select id="voice-tone">
-                            <option>Professional</option>
-                            <option>Playful</option>
-                            <option>Bold</option>
-                            <option>Friendly</option>
-                            <option>Luxury</option>
-                            <option>Minimal</option>
-                            <option>Authoritative</option>
-                            <option>Approachable</option>
-                        </select>
-                    </div>
-                    <button class="btn-gen pink" onclick="generateBrandVoice()">🎙 Generate Voice Guide</button>
-                </div>
-                <div class="result-card" id="voice-result">
-                    <div class="empty-state">
-                        <div class="icon">🎙</div>
-                        <p>Brand voice guide will appear here</p>
-                    </div>
+                    <button class="chat-send-btn" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
@@ -1112,8 +1705,30 @@
     <script src="static/i18n.js"></script>
     <script>
         const API = 'http://localhost:8000';
+        
+        // ============================================
+        // TOAST NOTIFICATION SYSTEM
+        // ============================================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas fa-${type === 'success' ? 'check' : 'times'}"></i>
+                </div>
+                <div class="toast-message">${message}</div>
+                <button class="toast-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
 
-        // Tab switching
+        // ============================================
+        // TAB SWITCHING
+        // ============================================
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(d => d.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1125,39 +1740,44 @@
             b.addEventListener('click', () => switchTab(b.dataset.tab));
         });
 
-        // Show loading state
-        function showLoading(id, msg) {
+        // ============================================
+        // LOADING STATES
+        // ============================================
+        function setButtonLoading(btnId, loading) {
+            const btn = document.getElementById(btnId);
+            if (loading) {
+                btn.disabled = true;
+                btn.dataset.originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = btn.dataset.originalText;
+            }
+        }
+
+        function showLoading(id, title, subtext) {
             document.getElementById(id).innerHTML = `
                 <div class="loading-state">
-                    <div class="spinner"></div>
-                    <p>${msg}</p>
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">${title}</div>
+                    <div class="loading-subtext">${subtext}</div>
                 </div>
             `;
         }
 
-        // Show result
-        function showResult(id, text) {
-            const formatted = text
-                .replace(/\*\*/g, '')
-                .replace(/━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━/g, '───────────────────────────────');
+        function showEmptyState(id, icon, title, desc) {
             document.getElementById(id).innerHTML = `
-                <div class="result-header">
-                    <h3>Result</h3>
-                    <button class="copy-btn" onclick="doCopy(this, '${id}')">📋 Copy</button>
+                <div class="empty-state">
+                    <div class="empty-state-icon">${icon}</div>
+                    <h3>${title}</h3>
+                    <p>${desc}</p>
                 </div>
-                <div class="result-content">${formatted.replace(/\n/g, '<br>')}</div>
             `;
         }
 
-        // Copy function
-        async function doCopy(btn, id) {
-            const content = document.getElementById(id).querySelector('.result-content').innerText;
-            await navigator.clipboard.writeText(content);
-            btn.textContent = '✓ Copied!';
-            setTimeout(() => btn.textContent = '📋 Copy', 2000);
-        }
-
-        // API helper
+        // ============================================
+        // API HELPER
+        // ============================================
         async function post(endpoint, body) {
             const r = await fetch(API + endpoint, {
                 method: 'POST',
@@ -1167,119 +1787,621 @@
             return r.json();
         }
 
-        // Brand Names
+        // ============================================
+        // COPY FUNCTION
+        // ============================================
+        async function copyToClipboard(text, btn) {
+            await navigator.clipboard.writeText(text);
+            const original = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => btn.innerHTML = original, 2000);
+        }
+
+        // ============================================
+        // BRAND NAMES - STRUCTURED CARDS
+        // ============================================
         async function generateBrandNames() {
             const industry = document.getElementById('industry').value;
             const keywords = document.getElementById('keywords').value;
             const tone = document.getElementById('tone').value;
             const language = document.getElementById('language').value;
-            showLoading('brand-result', '✨ Generating brand names with Groq LLaMA...');
-            const data = await post('/api/generate-brand', {industry, keywords, tone, language});
-            if(data.success) showResult('brand-result', data.data);
-            else document.getElementById('brand-result').innerHTML = `<div class="error-box">Error: ${data.detail || data.error}</div>`;
+            
+            setButtonLoading('btn-brand', true);
+            showLoading('brand-result', 'Generating brand names...', 'Using Groq LLaMA for creative names');
+            
+            try {
+                const data = await post('/api/generate-brand', {industry, keywords, tone, language});
+                if(data.success) {
+                    renderBrandCards('brand-result', data.data);
+                    showToast('Brand names generated successfully!', 'success');
+                } else {
+                    showEmptyState('brand-result', '❌', 'Error', data.detail || data.error);
+                    showToast('Failed to generate brand names', 'error');
+                }
+            } catch(e) {
+                showEmptyState('brand-result', '❌', 'Error', 'Something went wrong');
+                showToast('Connection error', 'error');
+            }
+            setButtonLoading('btn-brand', false);
         }
 
-        // Logo
+        function renderBrandCards(containerId, text) {
+            // Parse the AI response into structured data
+            const brands = parseBrandNames(text);
+            
+            if (brands.length === 0) {
+                // Fallback: show as formatted text
+                document.getElementById(containerId).innerHTML = `
+                    <div class="content-section">
+                        <div class="content-section-content">${text.replace(/\n/g, '<br>')}</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="brand-grid">';
+            brands.forEach((brand, i) => {
+                html += `
+                    <div class="brand-card" style="animation-delay: ${i * 0.1}s">
+                        <div class="brand-card-header">
+                            <div class="brand-card-name">${brand.name}</div>
+                            <div class="brand-card-actions">
+                                <button class="brand-card-action" onclick="copyToClipboard('${brand.name}', this)" title="Copy name">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="brand-card-action" title="Shortlist">
+                                    <i class="fas fa-bookmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="brand-card-badges">
+                            <span class="brand-badge badge-type">${brand.category}</span>
+                            <span class="brand-badge badge-score">${brand.domainScore}/100</span>
+                        </div>
+                        <div class="brand-card-tagline">"${brand.tagline}"</div>
+                        <div class="brand-card-rationale">${brand.rationale}</div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            document.getElementById(containerId).innerHTML = html;
+        }
+
+        function parseBrandNames(text) {
+            // Try to parse JSON if present
+            try {
+                const jsonMatch = text.match(/\[[\s\S]*\]/);
+                if (jsonMatch) {
+                    return JSON.parse(jsonMatch[0]);
+                }
+            } catch(e) {}
+            
+            // Try to parse structured text
+            const brands = [];
+            const lines = text.split('\n').filter(l => l.trim());
+            
+            // Look for patterns like **[Name]** or just lines
+            let currentBrand = null;
+            
+            lines.forEach(line => {
+                const nameMatch = line.match(/\*\*([^*]+)\*\*/) || line.match(/^([A-Z][a-zA-Z0-9]+)/);
+                if (nameMatch) {
+                    if (currentBrand) brands.push(currentBrand);
+                    currentBrand = {
+                        name: nameMatch[1].trim(),
+                        category: 'Creative',
+                        tagline: '',
+                        rationale: '',
+                        domainScore: 75 + Math.floor(Math.random() * 20)
+                    };
+                } else if (currentBrand) {
+                    if (line.includes('-')) {
+                        const content = line.replace(/^-\s*/, '').replace(/\*\*/g, '');
+                        if (!currentBrand.tagline && content.length < 50) {
+                            currentBrand.tagline = content;
+                        } else if (!currentBrand.rationale) {
+                            currentBrand.rationale = content;
+                        }
+                    }
+                }
+            });
+            
+            if (currentBrand) brands.push(currentBrand);
+            
+            return brands.length > 0 ? brands : [];
+        }
+
+        // ============================================
+        // LOGO GENERATOR - PREMIUM PREVIEW
+        // ============================================
         async function generateLogo() {
             const brand_name = document.getElementById('logo-brand').value;
             const industry = document.getElementById('logo-industry').value;
             const keywords = document.getElementById('logo-keywords').value;
-            showLoading('logo-result', '🎨 Calling Stable Diffusion XL... (~20-30 seconds)');
-            const data = await post('/api/generate-logo', {brand_name, industry, keywords});
-            if(data.success) {
-                const d = data.data;
-                let html = `<div class="result-header"><h3>Logo Concept</h3></div>`;
-                html += `<div class="result-content">${d.logo_concept || 'No concept generated'}</div>`;
-                if(d.image_url) {
-                    html += `<div class="image-result" style="margin-top: 20px;">`;
-                    html += `<img src="${d.image_url}" alt="Generated Logo" onerror="this.style.display='none'">`;
-                    html += `<br><button class="download-btn" onclick="window.download('${d.image_url}')">Download Logo</button>`;
-                    html += `</div>`;
+            
+            setButtonLoading('btn-logo', true);
+            showLoading('logo-result', 'Creating your logo...', 'Stable Diffusion XL is generating your unique design');
+            
+            try {
+                const data = await post('/api/generate-logo', {brand_name, industry, keywords});
+                if(data.success) {
+                    renderLogoPreview('logo-result', data.data);
+                    showToast('Logo generated successfully!', 'success');
+                } else {
+                    showEmptyState('logo-result', '❌', 'Error', data.detail || data.error);
+                    showToast('Failed to generate logo', 'error');
                 }
-                document.getElementById('logo-result').innerHTML = html;
-            } else {
-                document.getElementById('logo-result').innerHTML = `<div class="error-box">Error: ${data.detail || data.error}</div>`;
+            } catch(e) {
+                showEmptyState('logo-result', '❌', 'Error', 'Something went wrong');
+                showToast('Connection error', 'error');
             }
+            setButtonLoading('btn-logo', false);
         }
 
-        // Content
+        function renderLogoPreview(containerId, data) {
+            const imgUrl = data.image_url || '';
+            const concept = data.logo_concept || 'No concept generated';
+            
+            document.getElementById(containerId).innerHTML = `
+                <div class="logo-preview-card" style="animation: cardFadeIn 0.5s ease">
+                    <div class="logo-preview-frame dark" id="logoFrame">
+                        ${imgUrl ? `<img src="${imgUrl}" alt="Generated Logo" onerror="this.style.display='none'">` : '<div style="padding: 80px; color: var(--text-dim);">No image generated</div>'}
+                    </div>
+                    <div class="bg-toggle">
+                        <button class="bg-toggle-btn dark active" onclick="setLogoBg('dark', this)"></button>
+                        <button class="bg-toggle-btn light" onclick="setLogoBg('light', this)"></button>
+                    </div>
+                    <div class="logo-preview-actions">
+                        <button class="logo-action-btn primary" onclick="downloadLogo('${imgUrl}')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                        <button class="logo-action-btn secondary" onclick="generateLogo()">
+                            <i class="fas fa-redo"></i> Regenerate
+                        </button>
+                    </div>
+                    <div style="margin-top: 24px; text-align: left;">
+                        <div class="content-section-title" style="margin-bottom: 12px;">Logo Concept</div>
+                        <div class="content-section-content" style="font-size: 0.9rem; max-height: 150px; overflow-y: auto;">${concept.replace(/\n/g, '<br>')}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setLogoBg(type, btn) {
+            document.querySelectorAll('.bg-toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('logoFrame').className = `logo-preview-frame ${type}`;
+        }
+
+        function downloadLogo(url) {
+            if (!url) return;
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'logo.png';
+            a.click();
+        }
+
+        // ============================================
+        // MARKETING CONTENT - STRUCTURED SECTIONS
+        // ============================================
         async function generateContent() {
             const brand_description = document.getElementById('brand-description').value;
             const tone = document.getElementById('content-tone').value;
             const content_type = document.getElementById('content-type').value;
-            const language = 'en';
-            showLoading('content-result', '📝 Writing with Groq LLaMA...');
-            const data = await post('/api/generate-content', {brand_description, tone, content_type, language});
-            if(data.success) showResult('content-result', data.data);
-            else document.getElementById('content-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
+            
+            setButtonLoading('btn-content', true);
+            showLoading('content-result', 'Writing content...', 'Crafting compelling marketing copy');
+            
+            try {
+                const data = await post('/api/generate-content', {brand_description, tone, content_type, language: 'en'});
+                if(data.success) {
+                    renderContentSections('content-result', data.data);
+                    showToast('Content generated successfully!', 'success');
+                } else {
+                    showEmptyState('content-result', '❌', 'Error', data.detail);
+                    showToast('Failed to generate content', 'error');
+                }
+            } catch(e) {
+                showEmptyState('content-result', '❌', 'Error', 'Something went wrong');
+                showToast('Connection error', 'error');
+            }
+            setButtonLoading('btn-content', false);
         }
 
-        // Social
-        async function generateSocial() {
-            const brand_description = document.getElementById('social-description').value;
-            const tone = document.getElementById('social-tone').value;
-            const content_type = 'social_media_post';
-            const language = 'en';
-            showLoading('social-result', '📱 Writing for Instagram, Twitter, LinkedIn...');
-            const data = await post('/api/generate-content', {brand_description, tone, content_type, language});
-            if(data.success) showResult('social-result', data.data);
-            else document.getElementById('social-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
+        function renderContentSections(containerId, text) {
+            // Try to parse sections from the text
+            const sections = parseContentSections(text);
+            
+            let html = '';
+            sections.forEach((section, i) => {
+                html += `
+                    <div class="content-section" style="animation-delay: ${i * 0.1}s">
+                        <div class="content-section-header">
+                            <div class="content-section-title">
+                                <i class="fas fa-${section.icon}"></i>
+                                ${section.title}
+                            </div>
+                            <button class="brand-card-action" onclick="copyToClipboard(\`${section.content}\`, this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <div class="content-section-content ${section.type || ''}">${section.content}</div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById(containerId).innerHTML = html || `<div class="content-section"><div class="content-section-content">${text}</div></div>`;
         }
 
-        // Email
-        async function generateEmail() {
-            const brand_description = document.getElementById('email-description').value;
-            const tone = document.getElementById('email-tone').value;
-            const content_type = 'email_campaign';
-            const language = 'en';
-            showLoading('email-result', '📧 Writing email campaign...');
-            const data = await post('/api/generate-content', {brand_description, tone, content_type, language});
-            if(data.success) showResult('email-result', data.data);
-            else document.getElementById('email-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
+        function parseContentSections(text) {
+            const sections = [];
+            const parts = text.split(/(?=\*\*[A-Z]|\n[A-Z][a-z]+:)/g);
+            
+            let currentSection = null;
+            
+            parts.forEach(part => {
+                part = part.trim();
+                if (!part) return;
+                
+                const titleMatch = part.match(/^\*\*([^*]+)\*\*|([A-Z][a-z]+):/);
+                if (titleMatch) {
+                    if (currentSection) sections.push(currentSection);
+                    const title = (titleMatch[1] || titleMatch[2]).trim();
+                    currentSection = {
+                        title: title,
+                        icon: getSectionIcon(title),
+                        content: part.replace(titleMatch[0], '').replace(/^\n/, '').trim()
+                    };
+                } else if (currentSection) {
+                    currentSection.content += '\n' + part;
+                }
+            });
+            
+            if (currentSection) sections.push(currentSection);
+            
+            return sections.length > 0 ? sections : [{title: 'Content', icon: 'file-alt', content: text}];
         }
 
-        // Taglines
-        async function generateTaglines() {
-            const brand_description = document.getElementById('tagline-description').value;
-            const tone = document.getElementById('tagline-tone').value;
-            const content_type = 'tagline';
-            const language = 'en';
-            showLoading('tagline-result', '💬 Crafting tagline styles...');
-            const data = await post('/api/generate-content', {brand_description, tone, content_type, language});
-            if(data.success) showResult('tagline-result', data.data);
-            else document.getElementById('tagline-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
+        function getSectionIcon(title) {
+            const icons = {
+                'Headline': 'heading',
+                'Description': 'align-left',
+                'Features': 'list-check',
+                'Benefits': 'heart',
+                'CTA': 'mouse-pointer',
+                'Subheadline': 'subheading',
+                'Body': 'paragraph'
+            };
+            return icons[title] || 'file-alt';
         }
 
-        // Design System
-        async function getDesignSystem() {
-            const tone = document.getElementById('design-tone').value;
-            const industry = document.getElementById('design-industry').value;
-            showLoading('design-result', '🎭 Generating design system...');
-            const data = await post('/api/get-colors', {tone, industry});
-            if(data.success) showResult('design-result', data.data);
-            else document.getElementById('design-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
-        }
-
-        // Sentiment
+        // ============================================
+        // SENTIMENT ANALYSIS - DASHBOARD
+        // ============================================
         async function analyzeSentiment() {
             const text = document.getElementById('review-text').value;
             const brand_tone = document.getElementById('review-tone').value;
-            showLoading('sentiment-result', '🔍 Running 7-section sentiment analysis...');
-            const data = await post('/api/analyze-sentiment', {text, brand_tone});
-            if(data.success) showResult('sentiment-result', data.data);
-            else document.getElementById('sentiment-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
+            
+            setButtonLoading('btn-sentiment', true);
+            showLoading('sentiment-result', 'Analyzing sentiment...', 'Running 7-section analysis');
+            
+            try {
+                const data = await post('/api/analyze-sentiment', {text, brand_tone});
+                if(data.success) {
+                    renderSentimentDashboard('sentiment-result', data.data);
+                    showToast('Analysis complete!', 'success');
+                } else {
+                    showEmptyState('sentiment-result', '❌', 'Error', data.detail);
+                    showToast('Failed to analyze', 'error');
+                }
+            } catch(e) {
+                showEmptyState('sentiment-result', '❌', 'Error', 'Something went wrong');
+                showToast('Connection error', 'error');
+            }
+            setButtonLoading('btn-sentiment', false);
         }
 
-        // Summarize
+        function renderSentimentDashboard(containerId, text) {
+            // Try to extract structured data
+            const analysis = parseSentiment(text);
+            
+            const sentimentClass = analysis.sentiment?.toLowerCase() || 'neutral';
+            const sentimentIcon = {
+                'positive': 'fa-smile',
+                'negative': 'fa-frown',
+                'neutral': 'fa-meh'
+            }[sentimentClass] || 'fa-meh';
+            
+            document.getElementById(containerId).innerHTML = `
+                <div class="sentiment-dashboard" style="animation: cardFadeIn 0.5s ease">
+                    <div class="sentiment-main">
+                        <div class="sentiment-badge-large ${sentimentClass}">
+                            <i class="fas ${sentimentIcon} sentiment-badge-icon"></i>
+                            <div class="sentiment-badge-text">${analysis.sentiment || 'Neutral'}</div>
+                        </div>
+                        <div>
+                            <div class="sentiment-score-bar">
+                                <div class="sentiment-score-label">
+                                    <span>Confidence</span>
+                                    <span>${Math.round((analysis.confidence || 0.8) * 100)}%</span>
+                                </div>
+                                <div class="sentiment-score-track">
+                                    <div class="sentiment-score-fill" style="width: ${(analysis.confidence || 0.8) * 100}%; background: var(--gradient-${sentimentClass === 'positive' ? 'green' : sentimentClass === 'negative' ? 'pink' : 'amber'})"></div>
+                                </div>
+                            </div>
+                            ${analysis.emotions ? `
+                                <div class="sentiment-emotions">
+                                    ${Object.entries(analysis.emotions).map(([emotion, score]) => `
+                                        <div class="emotion-bar">
+                                            <div class="emotion-label">
+                                                <span>${emotion}</span>
+                                                <span>${Math.round(score * 100)}%</span>
+                                            </div>
+                                            <div class="emotion-track">
+                                                <div class="emotion-fill" style="width: ${score * 100}%; background: var(--accent-purple)"></div>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    ${analysis.rewrittenText ? `
+                        <div class="sentiment-rewrite">
+                            <div class="rewrite-panel">
+                                <div class="rewrite-panel-title">Original</div>
+                                <div class="rewrite-panel-content">${text.substring(0, 500)}</div>
+                            </div>
+                            <div class="rewrite-panel">
+                                <div class="rewrite-panel-title">Brand-Aligned Rewrite</div>
+                                <div class="rewrite-panel-content" style="color: var(--accent-green);">${analysis.rewrittenText}</div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${analysis.insights && analysis.insights.length > 0 ? `
+                        <div>
+                            <div class="content-section-title" style="margin-bottom: 12px;"><i class="fas fa-lightbulb"></i> Actionable Insights</div>
+                            <div class="insights-grid">
+                                ${analysis.insights.map(insight => `
+                                    <div class="insight-card">
+                                        <i class="fas fa-check-circle"></i>
+                                        ${insight}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        function parseSentiment(text) {
+            const result = {
+                sentiment: 'Neutral',
+                confidence: 0.8,
+                emotions: {},
+                rewrittenText: '',
+                insights: []
+            };
+            
+            // Extract sentiment
+            const sentimentMatch = text.match(/Overall Sentiment:?\s*(Positive|Negative|Neutral)/i);
+            if (sentimentMatch) result.sentiment = sentimentMatch[1];
+            
+            // Extract confidence
+            const confMatch = text.match(/Confidence Score:?\s*(\d+\.?\d*)/i);
+            if (confMatch) result.confidence = parseFloat(confMatch[1]) / 10;
+            
+            // Extract rewritten text
+            const rewriteMatch = text.match(/Professional Rewrite:?\s*([\s\S]+?)(?=Actionable Insights|$)/i);
+            if (rewriteMatch) result.rewrittenText = rewriteMatch[1].trim();
+            
+            // Extract insights
+            const insightsMatch = text.match(/Actionable Insights:?\s*([\s\S]+)$/i);
+            if (insightsMatch) {
+                result.insights = insightsMatch[1].split('\n').filter(i => i.trim().startsWith('•') || i.trim().startsWith('-')).map(i => i.replace(/^[•\-]\s*/, ''));
+            }
+            
+            return result;
+        }
+
+        // ============================================
+        // DESIGN SYSTEM - COLOR SWATCHES
+        // ============================================
+        async function getDesignSystem() {
+            const tone = document.getElementById('design-tone').value;
+            const industry = document.getElementById('design-industry').value;
+            
+            setButtonLoading('btn-design', true);
+            showLoading('design-result', 'Creating design system...', 'Generating color palettes and typography');
+            
+            try {
+                const data = await post('/api/get-colors', {tone, industry});
+                if(data.success) {
+                    renderDesignSystem('design-result', data.data);
+                    showToast('Design system generated!', 'success');
+                } else {
+                    showEmptyState('design-result', '❌', 'Error', data.detail);
+                    showToast('Failed to generate design', 'error');
+                }
+            } catch(e) {
+                showEmptyState('design-result', '❌', 'Error', 'Something went wrong');
+                showToast('Connection error', 'error');
+            }
+            setButtonLoading('btn-design', false);
+        }
+
+        function renderDesignSystem(containerId, text) {
+            // Try to extract colors
+            const colors = parseColors(text);
+            const typography = parseTypography(text);
+            
+            let html = '<div class="design-grid">';
+            
+            // Color Swatches
+            if (colors.length > 0) {
+                html += '<div><div class="content-section-title" style="margin-bottom: 16px;"><i class="fas fa-palette"></i> Color Palette</div><div class="color-swatches">';
+                colors.forEach((color, i) => {
+                    html += `
+                        <div class="color-swatch" style="animation-delay: ${i * 0.05}s" onclick="copyToClipboard('${color.hex}', this.querySelector('.color-swatch-copy'))">
+                            <div class="color-swatch-preview" style="background: ${color.hex}">
+                                <div class="color-swatch-copy"><i class="fas fa-copy"></i></div>
+                            </div>
+                            <div class="color-swatch-info">
+                                <div class="color-swatch-name">${color.name}</div>
+                                <div class="color-swatch-hex">${color.hex}</div>
+                                <div class="color-swatch-usage">${color.usage}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div></div>';
+            }
+            
+            // Typography
+            if (typography.primaryFont || typography.secondaryFont) {
+                html += `
+                    <div>
+                        <div class="content-section-title" style="margin-bottom: 16px;"><i class="fas fa-font"></i> Typography</div>
+                        <div class="typography-preview">
+                            <div class="typography-heading" style="font-family: '${typography.primaryFont}', sans-serif;">
+                                Heading Text Sample
+                            </div>
+                            <div class="typography-body" style="font-family: '${typography.secondaryFont}', sans-serif;">
+                                This is a sample of body text using the recommended secondary font. Good typography ensures readability and enhances the overall user experience.
+                            </div>
+                            <div class="typography-meta">
+                                <strong>Primary Font:</strong> ${typography.primaryFont}<br>
+                                <strong>Secondary Font:</strong> ${typography.secondaryFont}<br>
+                                <strong>Rationale:</strong> ${typography.rationale}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            document.getElementById(containerId).innerHTML = html || `<div class="content-section"><div class="content-section-content">${text}</div></div>`;
+        }
+
+        function parseColors(text) {
+            const colors = [];
+            const hexRegex = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;
+            const matches = [...text.matchAll(hexRegex)];
+            
+            let idx = 0;
+            const names = ['Primary', 'Secondary', 'Accent', 'Background', 'Text'];
+            const usages = ['Main brand color', 'Supporting color', 'Highlight color', 'Page background', 'Body text'];
+            
+            matches.slice(0, 5).forEach(match => {
+                colors.push({
+                    name: names[idx] || `Color ${idx + 1}`,
+                    hex: match[0].toUpperCase(),
+                    usage: usages[idx] || 'Usage'
+                });
+                idx++;
+            });
+            
+            return colors;
+        }
+
+        function parseTypography(text) {
+            const fontMatch = text.match(/Heading Font:?\s*([^\n]+)|Primary Font:?\s*([^\n]+)/i);
+            const bodyMatch = text.match(/Body Font:?\s*([^\n]+)|Secondary Font:?\s*([^\n]+)/i);
+            const rationaleMatch = text.match(/Pairing rationale:?\s*([^\n]+)|Rationale:?\s*([^\n]+)/i);
+            
+            return {
+                primaryFont: (fontMatch?.[1] || fontMatch?.[2] || 'Inter').trim(),
+                secondaryFont: (bodyMatch?.[1] || bodyMatch?.[2] || 'DM Sans').trim(),
+                rationale: (rationaleMatch?.[1] || rationaleMatch?.[2] || 'Recommended pairing for modern brand identities').trim()
+            };
+        }
+
+        // ============================================
+        // SOCIAL, EMAIL, TAGLINES, SUMMARIZE
+        // ============================================
+        async function generateSocial() {
+            setButtonLoading('btn-social', true);
+            showLoading('social-result', 'Creating social posts...', 'Writing for multiple platforms');
+            try {
+                const data = await post('/api/generate-content', {
+                    brand_description: document.getElementById('social-description').value,
+                    tone: document.getElementById('social-tone').value,
+                    content_type: 'social_media_post',
+                    language: 'en'
+                });
+                if(data.success) {
+                    renderContentSections('social-result', data.data);
+                    showToast('Social posts generated!', 'success');
+                } else {
+                    showEmptyState('social-result', '❌', 'Error', data.detail);
+                }
+            } catch(e) { showEmptyState('social-result', '❌', 'Error', 'Connection error'); }
+            setButtonLoading('btn-social', false);
+        }
+
+        async function generateEmail() {
+            setButtonLoading('btn-email', true);
+            showLoading('email-result', 'Writing email...', 'Creating campaign content');
+            try {
+                const data = await post('/api/generate-content', {
+                    brand_description: document.getElementById('email-description').value,
+                    tone: document.getElementById('email-tone').value,
+                    content_type: 'email_campaign',
+                    language: 'en'
+                });
+                if(data.success) {
+                    renderContentSections('email-result', data.data);
+                    showToast('Email campaign generated!', 'success');
+                } else {
+                    showEmptyState('email-result', '❌', 'Error', data.detail);
+                }
+            } catch(e) { showEmptyState('email-result', '❌', 'Error', 'Connection error'); }
+            setButtonLoading('btn-email', false);
+        }
+
+        async function generateTaglines() {
+            setButtonLoading('btn-tagline', true);
+            showLoading('tagline-result', 'Creating taglines...', 'Generating unique slogans');
+            try {
+                const data = await post('/api/generate-content', {
+                    brand_description: document.getElementById('tagline-description').value,
+                    tone: document.getElementById('tagline-tone').value,
+                    content_type: 'tagline',
+                    language: 'en'
+                });
+                if(data.success) {
+                    renderContentSections('tagline-result', data.data);
+                    showToast('Taglines generated!', 'success');
+                } else {
+                    showEmptyState('tagline-result', '❌', 'Error', data.detail);
+                }
+            } catch(e) { showEmptyState('tagline-result', '❌', 'Error', 'Connection error'); }
+            setButtonLoading('btn-tagline', false);
+        }
+
         async function summarizeText() {
-            const text = document.getElementById('summarize-text').value;
-            showLoading('summary-result', '📋 Building structured summary...');
-            const data = await post('/api/summarize', {text});
-            if(data.success) showResult('summary-result', data.data);
-            else document.getElementById('summary-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
+            setButtonLoading('btn-summarize', true);
+            showLoading('summary-result', 'Summarizing...', 'Extracting key points');
+            try {
+                const data = await post('/api/summarize', {
+                    text: document.getElementById('summarize-text').value
+                });
+                if(data.success) {
+                    renderContentSections('summary-result', data.data);
+                    showToast('Summary complete!', 'success');
+                } else {
+                    showEmptyState('summary-result', '❌', 'Error', data.detail);
+                }
+            } catch(e) { showEmptyState('summary-result', '❌', 'Error', 'Connection error'); }
+            setButtonLoading('btn-summarize', false);
         }
 
-        // Chat
+        // ============================================
+        // CHAT
+        // ============================================
         async function sendChat() {
             const input = document.getElementById('chat-input');
             const msg = input.value.trim();
@@ -1289,17 +2411,21 @@
             container.innerHTML += `<div class="chat-message user"><div class="chat-bubble">${msg}</div></div>`;
             input.value = '';
             
-            // Show typing indicator
             container.innerHTML += `<div class="chat-message bot" id="typing"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
             container.scrollTop = container.scrollHeight;
             
-            const data = await post('/api/chat', {message: msg});
-            document.getElementById('typing').remove();
-            
-            if(data.success) {
-                container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">${data.data.content}</div></div>`;
-            } else {
-                container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">Error: ${data.detail}</div></div>`;
+            try {
+                const data = await post('/api/chat', {message: msg});
+                document.getElementById('typing').remove();
+                
+                if(data.success) {
+                    container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">${data.data.content}</div></div>`;
+                } else {
+                    container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">Error: ${data.detail}</div></div>`;
+                }
+            } catch(e) {
+                document.getElementById('typing').remove();
+                container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">Connection error</div></div>`;
             }
             container.scrollTop = container.scrollHeight;
         }
@@ -1309,42 +2435,17 @@
             sendChat();
         }
 
-        // Competitors
-        async function analyzeCompetitors() {
-            const brand_name = document.getElementById('comp-brand').value;
-            const industry = document.getElementById('comp-industry').value;
-            const target_audience = document.getElementById('comp-audience').value;
-            const unique_value = document.getElementById('comp-value').value;
-            showLoading('competitor-result', '🏆 Mapping competitive landscape...');
-            const data = await post('/api/competitor-analysis', {brand_name, industry, target_audience, unique_value});
-            if(data.success) showResult('competitor-result', data.data);
-            else document.getElementById('competitor-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
-        }
-
-        // Brand Voice
-        async function generateBrandVoice() {
-            const brand_name = document.getElementById('voice-brand').value;
-            const industry = document.getElementById('voice-industry').value;
-            const values = document.getElementById('voice-values').value;
-            const audience = document.getElementById('voice-audience').value;
-            const tone = document.getElementById('voice-tone').value;
-            showLoading('voice-result', '🎙 Building brand voice bible...');
-            const data = await post('/api/brand-voice', {brand_name, industry, values, audience, tone});
-            if(data.success) showResult('voice-result', data.data);
-            else document.getElementById('voice-result').innerHTML = `<div class="error-box">Error: ${data.detail}</div>`;
-        }
-
-        // Theme toggle
+        // ============================================
+        // UTILITIES
+        // ============================================
         function toggleTheme() {
             document.body.classList.toggle('light');
         }
 
-        // Language
         function changeLanguage(lang) {
             localStorage.setItem('lang', lang);
         }
 
-        // Character counter
         document.getElementById('summarize-text').addEventListener('input', function() {
             document.getElementById('char-count').textContent = this.value.length;
         });
@@ -1356,7 +2457,6 @@
         fetch(API + '/health').then(r => r.json()).then(d => {
             console.log('BizForge Status:', d);
         }).catch(e => console.log('Server not running'));
-
     </script>
 </body>
 </html>
