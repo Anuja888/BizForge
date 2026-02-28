@@ -18,6 +18,7 @@ from ai_services import (
     generate_logo_image, transcribe_voice, summarize_text,
     analyze_competitors, generate_brand_voice
 )
+from auth import LoginRequest, LoginResponse, verify_login, make_token, validate_token
 
 app = FastAPI(title="BizForge API", version="1.0.0")
 
@@ -36,7 +37,63 @@ logos_path    = static_path / "generated_logos"
 
 app.mount("/static", StaticFiles(directory=str(static_path)), name="static")
 
+
 # ── ENDPOINTS ──────────────────────────────────────────────
+
+@app.post("/api/login", response_model=LoginResponse)
+async def login(request: LoginRequest):
+    """
+    Authenticate user with username and password.
+    Returns session token + user info on success.
+    Returns 401 with error message on failure.
+    """
+    user = verify_login(request.username, request.password)
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid username or password. Please try again."
+        )
+    token = make_token(user["id"], user["username"])
+    return LoginResponse(
+        success=True,
+        token=token,
+        user_id=user["id"],
+        username=user["username"],
+        full_name=user["full_name"],
+        role=user["role"],
+        avatar=user["avatar"],
+        theme_color=user["theme_color"],
+        message=f"Welcome back, {user['full_name']}!"
+    )
+
+@app.post("/api/logout")
+async def logout():
+    """
+    Logout endpoint. Frontend clears localStorage.
+    Returns success message.
+    """
+    return {"success": True, "message": "Logged out successfully"}
+
+@app.get("/api/verify-session")
+async def verify_session(token: str = ""):
+    """
+    Verify if a session token is still valid.
+    Called by pages on load to check authentication.
+    """
+    if not token:
+        raise HTTPException(status_code=401, detail="No token provided")
+    user = validate_token(token)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid or expired session")
+    return {
+        "success": True,
+        "user_id": user["id"],
+        "username": user["username"],
+        "full_name": user["full_name"],
+        "role": user["role"],
+        "avatar": user["avatar"],
+        "theme_color": user["theme_color"]
+    }
 
 @app.post("/api/generate-brand")
 async def ep_brand(request: BrandRequest):
@@ -128,6 +185,10 @@ async def ep_brand_voice(request: BrandVoiceRequest):
         raise HTTPException(500, str(e))
 
 # ── FRONTEND SERVING ───────────────────────────────────────
+
+@app.get("/login")
+async def login_page():
+    return FileResponse(frontend_path / "login.html")
 
 @app.get("/")
 async def root():

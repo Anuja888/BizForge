@@ -1,0 +1,31 @@
+{
+    "users": [
+        {
+            "id": "user_001",
+            "username": "admin",
+            "password": "admin123",
+            "full_name": "Admin User",
+            "role": "admin",
+            "avatar": "A",
+            "theme_color": "#e91e8c"
+        },
+        {
+            "id": "user_002",
+            "username": "demo",
+            "password": "demo123",
+            "full_name": "Demo User",
+            "role": "user",
+            "avatar": "D",
+            "theme_color": "#7c3aed"
+        },
+        {
+            "id": "user_003",
+            "username": "brand",
+            "password": "brand123",
+            "full_name": "Brand Manager",
+            "role": "user",
+            "avatar": "B",
+            "theme_color": "#06b6d4"
+        }
+    ]
+}
