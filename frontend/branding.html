@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BizForge Studio - AI Branding Suite</title>
+    <script>
+        // Auth guard — redirect to login if not authenticated
+        (function () {
+            const token = localStorage.getItem('bf_token');
+            if (!token) {
+                window.location.replace('/login');
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -22,22 +34,26 @@
             --text: #f8fafc;
             --text-muted: #94a3b8;
             --text-dim: #64748b;
-            --glass: rgba(255,255,255,0.03);
-            --glass-border: rgba(255,255,255,0.08);
-            --glass-hover: rgba(255,255,255,0.06);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.06);
             --r: 16px;
             --r-lg: 24px;
-            --shadow: 0 4px 24px rgba(0,0,0,0.3);
-            --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
             --gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6);
             --gradient-cyan: linear-gradient(135deg, #06b6d4, #0891b2);
             --gradient-pink: linear-gradient(135deg, #ec4899, #db2777);
             --gradient-green: linear-gradient(135deg, #10b981, #059669);
             --gradient-amber: linear-gradient(135deg, #f59e0b, #d97706);
         }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--bg);
@@ -58,7 +74,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(10,10,18,0.85);
+            background: rgba(10, 10, 18, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
         }
@@ -98,8 +114,8 @@
             align-items: center;
             gap: 8px;
             padding: 6px 12px;
-            background: rgba(16,185,129,0.15);
-            border: 1px solid rgba(16,185,129,0.3);
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 20px;
             font-size: 0.75rem;
             color: #10b981;
@@ -114,7 +130,7 @@
         }
 
         .nav-controls select {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--glass-border);
             border-radius: 8px;
             color: var(--text);
@@ -129,7 +145,7 @@
         }
 
         .theme-btn {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--glass-border);
             border-radius: 8px;
             color: var(--text);
@@ -139,7 +155,7 @@
         }
 
         .theme-btn:hover {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Tab Navigation */
@@ -151,7 +167,7 @@
             display: flex;
             gap: 4px;
             padding: 12px 16px;
-            background: rgba(10,10,18,0.9);
+            background: rgba(10, 10, 18, 0.9);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
             overflow-x: auto;
@@ -183,7 +199,7 @@
         .tab-btn.active {
             background: var(--gradient-primary);
             color: white;
-            box-shadow: 0 4px 16px rgba(99,102,241,0.4);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
         }
 
         /* Main Content */
@@ -205,8 +221,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Panel Header */
@@ -224,13 +247,33 @@
             gap: 12px;
         }
 
-        .panel-header h2.purple { color: #a78bfa; }
-        .panel-header h2.cyan { color: #22d3ee; }
-        .panel-header h2.pink { color: #f472b6; }
-        .panel-header h2.green { color: #34d399; }
-        .panel-header h2.amber { color: #fbbf24; }
-        .panel-header h2.violet { color: #a78bfa; }
-        .panel-header h2.teal { color: #2dd4bf; }
+        .panel-header h2.purple {
+            color: #a78bfa;
+        }
+
+        .panel-header h2.cyan {
+            color: #22d3ee;
+        }
+
+        .panel-header h2.pink {
+            color: #f472b6;
+        }
+
+        .panel-header h2.green {
+            color: #34d399;
+        }
+
+        .panel-header h2.amber {
+            color: #fbbf24;
+        }
+
+        .panel-header h2.violet {
+            color: #a78bfa;
+        }
+
+        .panel-header h2.teal {
+            color: #2dd4bf;
+        }
 
         .panel-header p {
             color: var(--text-dim);
@@ -245,7 +288,9 @@
         }
 
         @media (max-width: 1024px) {
-            .two-col { grid-template-columns: 1fr; }
+            .two-col {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Glass Card */
@@ -296,7 +341,7 @@
         .form-group select {
             width: 100%;
             padding: 14px 16px;
-            background: rgba(255,255,255,0.04);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             color: var(--text);
@@ -316,8 +361,8 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--accent);
-            background: rgba(99,102,241,0.08);
-            box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
+            background: rgba(99, 102, 241, 0.08);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
         .form-group textarea {
@@ -348,20 +393,55 @@
             transform: none !important;
         }
 
-        .btn-gen.purple { background: var(--gradient-primary); color: white; }
-        .btn-gen.purple:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(99,102,241,0.5); transform: translateY(-2px); }
+        .btn-gen.purple {
+            background: var(--gradient-primary);
+            color: white;
+        }
 
-        .btn-gen.cyan { background: var(--gradient-cyan); color: white; }
-        .btn-gen.cyan:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(6,182,212,0.5); transform: translateY(-2px); }
+        .btn-gen.purple:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
+        }
 
-        .btn-gen.pink { background: var(--gradient-pink); color: white; }
-        .btn-gen.pink:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(236,72,153,0.5); transform: translateY(-2px); }
+        .btn-gen.cyan {
+            background: var(--gradient-cyan);
+            color: white;
+        }
 
-        .btn-gen.green { background: var(--gradient-green); color: white; }
-        .btn-gen.green:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(16,185,129,0.5); transform: translateY(-2px); }
+        .btn-gen.cyan:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+        }
 
-        .btn-gen.amber { background: var(--gradient-amber); color: white; }
-        .btn-gen.amber:hover:not(:disabled) { box-shadow: 0 8px 30px rgba(245,158,11,0.5); transform: translateY(-2px); }
+        .btn-gen.pink {
+            background: var(--gradient-pink);
+            color: white;
+        }
+
+        .btn-gen.pink:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(236, 72, 153, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-gen.green {
+            background: var(--gradient-green);
+            color: white;
+        }
+
+        .btn-gen.green:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-gen.amber {
+            background: var(--gradient-amber);
+            color: white;
+        }
+
+        .btn-gen.amber:hover:not(:disabled) {
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5);
+            transform: translateY(-2px);
+        }
 
         /* Result Card */
         .result-card {
@@ -429,7 +509,11 @@
             margin-bottom: 20px;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         .loading-text {
             font-size: 0.95rem;
@@ -444,15 +528,20 @@
 
         /* Skeleton Loader */
         .skeleton {
-            background: linear-gradient(90deg, var(--glass) 25%, rgba(255,255,255,0.08) 50%, var(--glass) 75%);
+            background: linear-gradient(90deg, var(--glass) 25%, rgba(255, 255, 255, 0.08) 50%, var(--glass) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
             border-radius: 8px;
         }
 
         @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
 
         .skeleton-card {
@@ -465,7 +554,9 @@
             margin-bottom: 8px;
         }
 
-        .skeleton-text-short { width: 60%; }
+        .skeleton-text-short {
+            width: 60%;
+        }
 
         /* Brand Cards Grid */
         .brand-grid {
@@ -485,14 +576,21 @@
         }
 
         @keyframes cardFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .brand-card:hover {
             transform: translateY(-4px);
             border-color: var(--accent-purple);
-            box-shadow: 0 12px 40px rgba(139,92,246,0.2);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
         }
 
         .brand-card-header {
@@ -520,7 +618,7 @@
         .brand-card-action {
             width: 32px;
             height: 32px;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--glass-border);
             border-radius: 8px;
             display: flex;
@@ -555,15 +653,15 @@
         }
 
         .badge-type {
-            background: rgba(139,92,246,0.2);
+            background: rgba(139, 92, 246, 0.2);
             color: #a78bfa;
-            border: 1px solid rgba(139,92,246,0.3);
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
 
         .badge-score {
-            background: rgba(16,185,129,0.2);
+            background: rgba(16, 185, 129, 0.2);
             color: #34d399;
-            border: 1px solid rgba(16,185,129,0.3);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .brand-card-tagline {
@@ -626,8 +724,8 @@
         }
 
         .content-section-content.cta {
-            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.15));
-            border: 1px solid rgba(16,185,129,0.3);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 12px;
             padding: 16px;
             font-weight: 600;
@@ -648,7 +746,9 @@
         }
 
         @media (max-width: 600px) {
-            .sentiment-main { grid-template-columns: 1fr; }
+            .sentiment-main {
+                grid-template-columns: 1fr;
+            }
         }
 
         .sentiment-badge-large {
@@ -664,19 +764,19 @@
         }
 
         .sentiment-badge-large.positive {
-            background: rgba(16,185,129,0.15);
+            background: rgba(16, 185, 129, 0.15);
             border-color: #10b981;
             color: #10b981;
         }
 
         .sentiment-badge-large.negative {
-            background: rgba(239,68,68,0.15);
+            background: rgba(239, 68, 68, 0.15);
             border-color: #ef4444;
             color: #ef4444;
         }
 
         .sentiment-badge-large.neutral {
-            background: rgba(245,158,11,0.15);
+            background: rgba(245, 158, 11, 0.15);
             border-color: #f59e0b;
             color: #f59e0b;
         }
@@ -754,7 +854,9 @@
         }
 
         @media (max-width: 700px) {
-            .sentiment-rewrite { grid-template-columns: 1fr; }
+            .sentiment-rewrite {
+                grid-template-columns: 1fr;
+            }
         }
 
         .rewrite-panel {
@@ -785,8 +887,8 @@
         }
 
         .insight-card {
-            background: rgba(99,102,241,0.1);
-            border: 1px solid rgba(99,102,241,0.2);
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 10px;
             padding: 14px;
             font-size: 0.85rem;
@@ -838,7 +940,7 @@
             right: 8px;
             width: 28px;
             height: 28px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -991,8 +1093,13 @@
             border-color: var(--accent);
         }
 
-        .bg-toggle-btn.dark { background: #1a1a2e; }
-        .bg-toggle-btn.light { background: #ffffff; }
+        .bg-toggle-btn.dark {
+            background: #1a1a2e;
+        }
+
+        .bg-toggle-btn.light {
+            background: #ffffff;
+        }
 
         /* Logo Shimmer Loading */
         .logo-shimmer {
@@ -1007,7 +1114,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             animation: shimmer 1.5s infinite;
         }
 
@@ -1036,8 +1143,15 @@
         }
 
         @keyframes toastIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .toast.success {
@@ -1059,12 +1173,12 @@
         }
 
         .toast.success .toast-icon {
-            background: rgba(16,185,129,0.2);
+            background: rgba(16, 185, 129, 0.2);
             color: #10b981;
         }
 
         .toast.error .toast-icon {
-            background: rgba(239,68,68,0.2);
+            background: rgba(239, 68, 68, 0.2);
             color: #ef4444;
         }
 
@@ -1124,7 +1238,7 @@
         }
 
         .chat-message.bot .chat-bubble {
-            background: rgba(255,255,255,0.06);
+            background: rgba(255, 255, 255, 0.06);
             border: 1px solid var(--glass-border);
             border-bottom-left-radius: 4px;
         }
@@ -1161,7 +1275,7 @@
         }
 
         .chat-send-btn:hover {
-            box-shadow: 0 8px 30px rgba(99,102,241,0.5);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
         }
 
         /* Typing Indicator */
@@ -1179,12 +1293,26 @@
             animation: typingPulse 1.4s infinite;
         }
 
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
 
         @keyframes typingPulse {
-            0%, 100% { opacity: 0.4; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1); }
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         /* Suggestion Chips */
@@ -1207,15 +1335,15 @@
         }
 
         .chip:hover {
-            background: rgba(99,102,241,0.15);
+            background: rgba(99, 102, 241, 0.15);
             border-color: var(--accent);
             color: var(--text);
         }
 
         /* Error Box */
         .error-box {
-            background: rgba(239,68,68,0.1);
-            border: 1px solid rgba(239,68,68,0.3);
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
             border-radius: 12px;
             padding: 16px;
             color: #ef4444;
@@ -1223,6 +1351,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Toast Container -->
@@ -1235,6 +1364,9 @@
             BizForge
         </a>
         <div class="nav-controls">
+            <div id="topbar-user"
+                style="display:flex;align-items:center;gap:8px;margin-right:12px;min-width:140px;justify-content:flex-end">
+            </div>
             <div class="nav-status">
                 <div class="nav-status-dot"></div>
                 AI Ready
@@ -1296,7 +1428,11 @@
                     </div>
                     <div class="form-group">
                         <label>Keywords</label>
-                        <input type="text" id="keywords" placeholder="smart, innovative, fast">
+                        <div style="display:flex;gap:8px;align-items:flex-end">
+                            <input type="text" id="keywords" placeholder="smart, innovative, fast" style="flex:1">
+                            <button class="mic-btn" onclick="startVoiceInput('keywords', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                         <div class="form-hint">Separate with commas</div>
                     </div>
                     <div class="form-group">
@@ -1346,7 +1482,11 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Logo Details</div>
                     <div class="form-group">
                         <label>Brand Name</label>
-                        <input type="text" id="logo-brand" placeholder="Your brand name">
+                        <div style="display:flex;gap:8px;align-items:flex-end">
+                            <input type="text" id="logo-brand" placeholder="Your brand name" style="flex:1">
+                            <button class="mic-btn" onclick="startVoiceInput('logo-brand', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Industry</label>
@@ -1365,7 +1505,12 @@
                     </div>
                     <div class="form-group">
                         <label>Style Keywords</label>
-                        <input type="text" id="logo-keywords" placeholder="modern, minimalist, elegant">
+                        <div style="display:flex;gap:8px;align-items:flex-end">
+                            <input type="text" id="logo-keywords" placeholder="modern, minimalist, elegant"
+                                style="flex:1">
+                            <button class="mic-btn" onclick="startVoiceInput('logo-keywords', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                         <div class="form-hint">Describe your preferred style</div>
                     </div>
                     <button class="btn-gen cyan" id="btn-logo" onclick="generateLogo()">
@@ -1396,7 +1541,11 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Content Settings</div>
                     <div class="form-group">
                         <label>Brand/Product Description</label>
-                        <textarea id="brand-description" placeholder="Describe your product or brand..."></textarea>
+                        <div class="textarea-wrapper">
+                            <textarea id="brand-description" placeholder="Describe your product or brand..."></textarea>
+                            <button class="mic-btn textarea-mic" onclick="startVoiceInput('brand-description', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Tone</label>
@@ -1441,7 +1590,11 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Social Settings</div>
                     <div class="form-group">
                         <label>Brand Description</label>
-                        <textarea id="social-description" placeholder="Describe your brand..."></textarea>
+                        <div class="textarea-wrapper">
+                            <textarea id="social-description" placeholder="Describe your brand..."></textarea>
+                            <button class="mic-btn textarea-mic" onclick="startVoiceInput('social-description', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Tone</label>
@@ -1488,7 +1641,12 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Email Settings</div>
                     <div class="form-group">
                         <label>Campaign Description</label>
-                        <textarea id="email-description" placeholder="What is this email campaign about?"></textarea>
+                        <div class="textarea-wrapper">
+                            <textarea id="email-description"
+                                placeholder="What is this email campaign about?"></textarea>
+                            <button class="mic-btn textarea-mic" onclick="startVoiceInput('email-description', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Industry</label>
@@ -1534,7 +1692,11 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Tagline Settings</div>
                     <div class="form-group">
                         <label>Brand Description</label>
-                        <textarea id="tagline-description" placeholder="What does your brand do?"></textarea>
+                        <div class="textarea-wrapper">
+                            <textarea id="tagline-description" placeholder="What does your brand do?"></textarea>
+                            <button class="mic-btn textarea-mic" onclick="startVoiceInput('tagline-description', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Tone</label>
@@ -1617,7 +1779,11 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Analysis Settings</div>
                     <div class="form-group">
                         <label>Text to Analyze</label>
-                        <textarea id="review-text" placeholder="Enter customer review or text..."></textarea>
+                        <div class="textarea-wrapper">
+                            <textarea id="review-text" placeholder="Enter customer review or text..."></textarea>
+                            <button class="mic-btn textarea-mic" onclick="startVoiceInput('review-text', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Brand Tone</label>
@@ -1653,7 +1819,12 @@
                     <div class="glass-card-title"><i class="fas fa-sliders-h"></i> Summarization</div>
                     <div class="form-group">
                         <label>Text to Summarize</label>
-                        <textarea id="summarize-text" placeholder="Paste long text here..." style="min-height: 200px;"></textarea>
+                        <div class="textarea-wrapper">
+                            <textarea id="summarize-text" placeholder="Paste long text here..."
+                                style="min-height: 200px;"></textarea>
+                            <button class="mic-btn textarea-mic" onclick="startVoiceInput('summarize-text', this)"
+                                title="Click to speak">🎤</button>
+                        </div>
                         <div style="text-align: right; font-size: 0.8rem; color: var(--text-dim); margin-top: 6px;">
                             <span id="char-count">0</span> / 4000 characters
                         </div>
@@ -1678,12 +1849,16 @@
                 <h2 class="purple"><i class="fas fa-robot"></i> AI Branding Assistant</h2>
                 <p>Chat with AI about branding strategy and more</p>
             </div>
-            
+
             <div class="suggestion-chips">
-                <span class="chip" onclick="sendSuggestion('What makes a brand name memorable?')">What makes a brand name memorable?</span>
-                <span class="chip" onclick="sendSuggestion('How do I position a new startup?')">How do I position a new startup?</span>
-                <span class="chip" onclick="sendSuggestion('What are the best taglines?')">What are the best taglines?</span>
-                <span class="chip" onclick="sendSuggestion('How to create brand identity?')">How to create brand identity?</span>
+                <span class="chip" onclick="sendSuggestion('What makes a brand name memorable?')">What makes a brand
+                    name memorable?</span>
+                <span class="chip" onclick="sendSuggestion('How do I position a new startup?')">How do I position a new
+                    startup?</span>
+                <span class="chip" onclick="sendSuggestion('What are the best taglines?')">What are the best
+                    taglines?</span>
+                <span class="chip" onclick="sendSuggestion('How to create brand identity?')">How to create brand
+                    identity?</span>
             </div>
 
             <div class="chat-container">
@@ -1694,7 +1869,12 @@
                     </div>
                 </div>
                 <div class="chat-input-row">
-                    <input type="text" id="chat-input" placeholder="Ask about branding..." onkeypress="if(event.key==='Enter')sendChat()">
+                    <div style="display:flex;gap:8px">
+                        <input type="text" id="chat-input" placeholder="Ask about branding..."
+                            onkeypress="if(event.key==='Enter')sendChat()" style="flex:1">
+                        <button class="mic-btn" onclick="startVoiceInput('chat-input', this)"
+                            title="Click to speak">🎤</button>
+                    </div>
                     <button class="chat-send-btn" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
@@ -1705,7 +1885,7 @@
     <script src="static/i18n.js"></script>
     <script>
         const API = 'http://localhost:8000';
-        
+
         // ============================================
         // TOAST NOTIFICATION SYSTEM
         // ============================================
@@ -1781,7 +1961,7 @@
         async function post(endpoint, body) {
             const r = await fetch(API + endpoint, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
             return r.json();
@@ -1805,20 +1985,20 @@
             const keywords = document.getElementById('keywords').value;
             const tone = document.getElementById('tone').value;
             const language = document.getElementById('language').value;
-            
+
             setButtonLoading('btn-brand', true);
             showLoading('brand-result', 'Generating brand names...', 'Using Groq LLaMA for creative names');
-            
+
             try {
-                const data = await post('/api/generate-brand', {industry, keywords, tone, language});
-                if(data.success) {
+                const data = await post('/api/generate-brand', { industry, keywords, tone, language });
+                if (data.success) {
                     renderBrandCards('brand-result', data.data);
                     showToast('Brand names generated successfully!', 'success');
                 } else {
                     showEmptyState('brand-result', '❌', 'Error', data.detail || data.error);
                     showToast('Failed to generate brand names', 'error');
                 }
-            } catch(e) {
+            } catch (e) {
                 showEmptyState('brand-result', '❌', 'Error', 'Something went wrong');
                 showToast('Connection error', 'error');
             }
@@ -1828,7 +2008,7 @@
         function renderBrandCards(containerId, text) {
             // Parse the AI response into structured data
             const brands = parseBrandNames(text);
-            
+
             if (brands.length === 0) {
                 // Fallback: show as formatted text
                 document.getElementById(containerId).innerHTML = `
@@ -1874,15 +2054,15 @@
                 if (jsonMatch) {
                     return JSON.parse(jsonMatch[0]);
                 }
-            } catch(e) {}
-            
+            } catch (e) { }
+
             // Try to parse structured text
             const brands = [];
             const lines = text.split('\n').filter(l => l.trim());
-            
+
             // Look for patterns like **[Name]** or just lines
             let currentBrand = null;
-            
+
             lines.forEach(line => {
                 const nameMatch = line.match(/\*\*([^*]+)\*\*/) || line.match(/^([A-Z][a-zA-Z0-9]+)/);
                 if (nameMatch) {
@@ -1905,9 +2085,9 @@
                     }
                 }
             });
-            
+
             if (currentBrand) brands.push(currentBrand);
-            
+
             return brands.length > 0 ? brands : [];
         }
 
@@ -1918,20 +2098,20 @@
             const brand_name = document.getElementById('logo-brand').value;
             const industry = document.getElementById('logo-industry').value;
             const keywords = document.getElementById('logo-keywords').value;
-            
+
             setButtonLoading('btn-logo', true);
             showLoading('logo-result', 'Creating your logo...', 'Stable Diffusion XL is generating your unique design');
-            
+
             try {
-                const data = await post('/api/generate-logo', {brand_name, industry, keywords});
-                if(data.success) {
+                const data = await post('/api/generate-logo', { brand_name, industry, keywords });
+                if (data.success) {
                     renderLogoPreview('logo-result', data.data);
                     showToast('Logo generated successfully!', 'success');
                 } else {
                     showEmptyState('logo-result', '❌', 'Error', data.detail || data.error);
                     showToast('Failed to generate logo', 'error');
                 }
-            } catch(e) {
+            } catch (e) {
                 showEmptyState('logo-result', '❌', 'Error', 'Something went wrong');
                 showToast('Connection error', 'error');
             }
@@ -1941,7 +2121,7 @@
         function renderLogoPreview(containerId, data) {
             const imgUrl = data.image_url || '';
             const concept = data.logo_concept || 'No concept generated';
-            
+
             document.getElementById(containerId).innerHTML = `
                 <div class="logo-preview-card" style="animation: cardFadeIn 0.5s ease">
                     <div class="logo-preview-frame dark" id="logoFrame">
@@ -1988,20 +2168,20 @@
             const brand_description = document.getElementById('brand-description').value;
             const tone = document.getElementById('content-tone').value;
             const content_type = document.getElementById('content-type').value;
-            
+
             setButtonLoading('btn-content', true);
             showLoading('content-result', 'Writing content...', 'Crafting compelling marketing copy');
-            
+
             try {
-                const data = await post('/api/generate-content', {brand_description, tone, content_type, language: 'en'});
-                if(data.success) {
+                const data = await post('/api/generate-content', { brand_description, tone, content_type, language: 'en' });
+                if (data.success) {
                     renderContentSections('content-result', data.data);
                     showToast('Content generated successfully!', 'success');
                 } else {
                     showEmptyState('content-result', '❌', 'Error', data.detail);
                     showToast('Failed to generate content', 'error');
                 }
-            } catch(e) {
+            } catch (e) {
                 showEmptyState('content-result', '❌', 'Error', 'Something went wrong');
                 showToast('Connection error', 'error');
             }
@@ -2011,7 +2191,7 @@
         function renderContentSections(containerId, text) {
             // Try to parse sections from the text
             const sections = parseContentSections(text);
-            
+
             let html = '';
             sections.forEach((section, i) => {
                 html += `
@@ -2029,20 +2209,20 @@
                     </div>
                 `;
             });
-            
+
             document.getElementById(containerId).innerHTML = html || `<div class="content-section"><div class="content-section-content">${text}</div></div>`;
         }
 
         function parseContentSections(text) {
             const sections = [];
             const parts = text.split(/(?=\*\*[A-Z]|\n[A-Z][a-z]+:)/g);
-            
+
             let currentSection = null;
-            
+
             parts.forEach(part => {
                 part = part.trim();
                 if (!part) return;
-                
+
                 const titleMatch = part.match(/^\*\*([^*]+)\*\*|([A-Z][a-z]+):/);
                 if (titleMatch) {
                     if (currentSection) sections.push(currentSection);
@@ -2056,10 +2236,10 @@
                     currentSection.content += '\n' + part;
                 }
             });
-            
+
             if (currentSection) sections.push(currentSection);
-            
-            return sections.length > 0 ? sections : [{title: 'Content', icon: 'file-alt', content: text}];
+
+            return sections.length > 0 ? sections : [{ title: 'Content', icon: 'file-alt', content: text }];
         }
 
         function getSectionIcon(title) {
@@ -2081,20 +2261,20 @@
         async function analyzeSentiment() {
             const text = document.getElementById('review-text').value;
             const brand_tone = document.getElementById('review-tone').value;
-            
+
             setButtonLoading('btn-sentiment', true);
             showLoading('sentiment-result', 'Analyzing sentiment...', 'Running 7-section analysis');
-            
+
             try {
-                const data = await post('/api/analyze-sentiment', {text, brand_tone});
-                if(data.success) {
+                const data = await post('/api/analyze-sentiment', { text, brand_tone });
+                if (data.success) {
                     renderSentimentDashboard('sentiment-result', data.data);
                     showToast('Analysis complete!', 'success');
                 } else {
                     showEmptyState('sentiment-result', '❌', 'Error', data.detail);
                     showToast('Failed to analyze', 'error');
                 }
-            } catch(e) {
+            } catch (e) {
                 showEmptyState('sentiment-result', '❌', 'Error', 'Something went wrong');
                 showToast('Connection error', 'error');
             }
@@ -2104,14 +2284,14 @@
         function renderSentimentDashboard(containerId, text) {
             // Try to extract structured data
             const analysis = parseSentiment(text);
-            
+
             const sentimentClass = analysis.sentiment?.toLowerCase() || 'neutral';
             const sentimentIcon = {
                 'positive': 'fa-smile',
                 'negative': 'fa-frown',
                 'neutral': 'fa-meh'
             }[sentimentClass] || 'fa-meh';
-            
+
             document.getElementById(containerId).innerHTML = `
                 <div class="sentiment-dashboard" style="animation: cardFadeIn 0.5s ease">
                     <div class="sentiment-main">
@@ -2185,25 +2365,25 @@
                 rewrittenText: '',
                 insights: []
             };
-            
+
             // Extract sentiment
             const sentimentMatch = text.match(/Overall Sentiment:?\s*(Positive|Negative|Neutral)/i);
             if (sentimentMatch) result.sentiment = sentimentMatch[1];
-            
+
             // Extract confidence
             const confMatch = text.match(/Confidence Score:?\s*(\d+\.?\d*)/i);
             if (confMatch) result.confidence = parseFloat(confMatch[1]) / 10;
-            
+
             // Extract rewritten text
             const rewriteMatch = text.match(/Professional Rewrite:?\s*([\s\S]+?)(?=Actionable Insights|$)/i);
             if (rewriteMatch) result.rewrittenText = rewriteMatch[1].trim();
-            
+
             // Extract insights
             const insightsMatch = text.match(/Actionable Insights:?\s*([\s\S]+)$/i);
             if (insightsMatch) {
                 result.insights = insightsMatch[1].split('\n').filter(i => i.trim().startsWith('•') || i.trim().startsWith('-')).map(i => i.replace(/^[•\-]\s*/, ''));
             }
-            
+
             return result;
         }
 
@@ -2213,20 +2393,20 @@
         async function getDesignSystem() {
             const tone = document.getElementById('design-tone').value;
             const industry = document.getElementById('design-industry').value;
-            
+
             setButtonLoading('btn-design', true);
             showLoading('design-result', 'Creating design system...', 'Generating color palettes and typography');
-            
+
             try {
-                const data = await post('/api/get-colors', {tone, industry});
-                if(data.success) {
+                const data = await post('/api/get-colors', { tone, industry });
+                if (data.success) {
                     renderDesignSystem('design-result', data.data);
                     showToast('Design system generated!', 'success');
                 } else {
                     showEmptyState('design-result', '❌', 'Error', data.detail);
                     showToast('Failed to generate design', 'error');
                 }
-            } catch(e) {
+            } catch (e) {
                 showEmptyState('design-result', '❌', 'Error', 'Something went wrong');
                 showToast('Connection error', 'error');
             }
@@ -2237,9 +2417,9 @@
             // Try to extract colors
             const colors = parseColors(text);
             const typography = parseTypography(text);
-            
+
             let html = '<div class="design-grid">';
-            
+
             // Color Swatches
             if (colors.length > 0) {
                 html += '<div><div class="content-section-title" style="margin-bottom: 16px;"><i class="fas fa-palette"></i> Color Palette</div><div class="color-swatches">';
@@ -2259,7 +2439,7 @@
                 });
                 html += '</div></div>';
             }
-            
+
             // Typography
             if (typography.primaryFont || typography.secondaryFont) {
                 html += `
@@ -2281,7 +2461,7 @@
                     </div>
                 `;
             }
-            
+
             html += '</div>';
             document.getElementById(containerId).innerHTML = html || `<div class="content-section"><div class="content-section-content">${text}</div></div>`;
         }
@@ -2290,11 +2470,11 @@
             const colors = [];
             const hexRegex = /#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;
             const matches = [...text.matchAll(hexRegex)];
-            
+
             let idx = 0;
             const names = ['Primary', 'Secondary', 'Accent', 'Background', 'Text'];
             const usages = ['Main brand color', 'Supporting color', 'Highlight color', 'Page background', 'Body text'];
-            
+
             matches.slice(0, 5).forEach(match => {
                 colors.push({
                     name: names[idx] || `Color ${idx + 1}`,
@@ -2303,7 +2483,7 @@
                 });
                 idx++;
             });
-            
+
             return colors;
         }
 
@@ -2311,7 +2491,7 @@
             const fontMatch = text.match(/Heading Font:?\s*([^\n]+)|Primary Font:?\s*([^\n]+)/i);
             const bodyMatch = text.match(/Body Font:?\s*([^\n]+)|Secondary Font:?\s*([^\n]+)/i);
             const rationaleMatch = text.match(/Pairing rationale:?\s*([^\n]+)|Rationale:?\s*([^\n]+)/i);
-            
+
             return {
                 primaryFont: (fontMatch?.[1] || fontMatch?.[2] || 'Inter').trim(),
                 secondaryFont: (bodyMatch?.[1] || bodyMatch?.[2] || 'DM Sans').trim(),
@@ -2332,13 +2512,13 @@
                     content_type: 'social_media_post',
                     language: 'en'
                 });
-                if(data.success) {
+                if (data.success) {
                     renderContentSections('social-result', data.data);
                     showToast('Social posts generated!', 'success');
                 } else {
                     showEmptyState('social-result', '❌', 'Error', data.detail);
                 }
-            } catch(e) { showEmptyState('social-result', '❌', 'Error', 'Connection error'); }
+            } catch (e) { showEmptyState('social-result', '❌', 'Error', 'Connection error'); }
             setButtonLoading('btn-social', false);
         }
 
@@ -2352,13 +2532,13 @@
                     content_type: 'email_campaign',
                     language: 'en'
                 });
-                if(data.success) {
+                if (data.success) {
                     renderContentSections('email-result', data.data);
                     showToast('Email campaign generated!', 'success');
                 } else {
                     showEmptyState('email-result', '❌', 'Error', data.detail);
                 }
-            } catch(e) { showEmptyState('email-result', '❌', 'Error', 'Connection error'); }
+            } catch (e) { showEmptyState('email-result', '❌', 'Error', 'Connection error'); }
             setButtonLoading('btn-email', false);
         }
 
@@ -2372,13 +2552,13 @@
                     content_type: 'tagline',
                     language: 'en'
                 });
-                if(data.success) {
+                if (data.success) {
                     renderTaglineCards('tagline-result', data.data);
                     showToast('Taglines generated!', 'success');
                 } else {
                     showEmptyState('tagline-result', '❌', 'Error', data.detail);
                 }
-            } catch(e) { showEmptyState('tagline-result', '❌', 'Error', 'Connection error'); }
+            } catch (e) { showEmptyState('tagline-result', '❌', 'Error', 'Connection error'); }
             setButtonLoading('btn-tagline', false);
         }
 
@@ -2387,7 +2567,7 @@
         // ============================================
         function renderTaglineCards(containerId, text) {
             const taglines = parseTaglines(text);
-            
+
             if (taglines.length === 0) {
                 document.getElementById(containerId).innerHTML = `
                     <div class="content-section">
@@ -2421,44 +2601,44 @@
 
         function parseTaglines(text) {
             const taglines = [];
-            
+
             // Clean the text first - remove broken prefixes
             let cleanText = text.replace(/:""/g, ': "').replace(/: "/g, ': "').replace(/^:/gm, '');
-            
+
             // Try to find patterns like "Bold:", "Emotional:", "Clever:", etc.
             const stylePatterns = [
                 /\*\*?([A-Za-z]+)\*\*?:?\s*[""]?([^"\n]+)[""]?/gi,
                 /^([A-Za-z\s]+):\s*[""]?([^"\n]+)[""]?/gim,
                 /^\d+\.\s*([A-Za-z\s]+):\s*[""]?([^"\n]+)[""]?/gim
             ];
-            
+
             // Split by common delimiters
             const parts = cleanText.split(/(?=\*\*[A-Z][a-z]+ \*\*|^\d+\.\s+[A-Z][a-z]+:|^[A-Z][a-z]+:)/gim);
-            
+
             parts.forEach(part => {
                 part = part.trim();
                 if (!part) return;
-                
+
                 // Try to extract style and tagline
                 const match = part.match(/^(\*\*?)?([A-Za-z\s]+)(\*\*?)?:?\s*[""]?(.+?)[""]?$/im);
                 if (match) {
                     const style = match[2].trim();
                     let taglineText = match[4].trim();
-                    
+
                     // Skip if it's not a valid style name
                     if (style.length < 3 || style.length > 20) return;
                     if (taglineText.length < 3) return;
-                    
+
                     // Clean up tagline text
                     taglineText = taglineText.replace(/^[""]|[""]$/g, '').trim();
-                    
+
                     // Get description if present
                     let description = '';
                     const descMatch = part.match(/\.([^.]+)$/);
                     if (descMatch && descMatch[1].length > 20) {
                         description = descMatch[1].trim();
                     }
-                    
+
                     taglines.push({
                         style: capitalizeFirst(style),
                         text: taglineText,
@@ -2466,7 +2646,7 @@
                     });
                 }
             });
-            
+
             // Fallback: try to split by newlines
             if (taglines.length === 0) {
                 const lines = cleanText.split('\n').filter(l => l.trim().length > 0);
@@ -2475,10 +2655,10 @@
                     if (colonIndex > 0 && colonIndex < 30) {
                         const style = line.substring(0, colonIndex).trim();
                         let taglineText = line.substring(colonIndex + 1).trim();
-                        
+
                         // Clean up
                         taglineText = taglineText.replace(/^[""]+|[""]+$/g, '').replace(/^:+/, '').trim();
-                        
+
                         if (style.length >= 3 && taglineText.length >= 3) {
                             taglines.push({
                                 style: capitalizeFirst(style),
@@ -2489,7 +2669,7 @@
                     }
                 });
             }
-            
+
             // Last resort: treat entire text as one tagline
             if (taglines.length === 0 && text.length > 10) {
                 taglines.push({
@@ -2498,7 +2678,7 @@
                     description: ''
                 });
             }
-            
+
             return taglines;
         }
 
@@ -2529,13 +2709,13 @@
                 const data = await post('/api/summarize', {
                     text: document.getElementById('summarize-text').value
                 });
-                if(data.success) {
+                if (data.success) {
                     renderContentSections('summary-result', data.data);
                     showToast('Summary complete!', 'success');
                 } else {
                     showEmptyState('summary-result', '❌', 'Error', data.detail);
                 }
-            } catch(e) { showEmptyState('summary-result', '❌', 'Error', 'Connection error'); }
+            } catch (e) { showEmptyState('summary-result', '❌', 'Error', 'Connection error'); }
             setButtonLoading('btn-summarize', false);
         }
 
@@ -2545,25 +2725,32 @@
         async function sendChat() {
             const input = document.getElementById('chat-input');
             const msg = input.value.trim();
-            if(!msg) return;
-            
+            if (!msg) return;
+
             const container = document.getElementById('chat-messages');
             container.innerHTML += `<div class="chat-message user"><div class="chat-bubble">${msg}</div></div>`;
             input.value = '';
-            
+
             container.innerHTML += `<div class="chat-message bot" id="typing"><div class="typing-indicator"><span></span><span></span><span></span></div></div>`;
             container.scrollTop = container.scrollHeight;
-            
+
             try {
-                const data = await post('/api/chat', {message: msg});
+                const data = await post('/api/chat', { message: msg });
                 document.getElementById('typing').remove();
-                
-                if(data.success) {
-                    container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">${data.data.content}</div></div>`;
+
+                if (data.success) {
+                    const botDiv = document.createElement('div');
+                    botDiv.className = 'chat-message bot';
+                    botDiv.innerHTML = `
+                        <div class="chat-bubble">
+                            <div class="bubble-content">${data.data.content}</div>
+                            <button class="msg-tts-btn" onclick="readMsgAloud(this)" title="Read message aloud">🔊</button>
+                        </div>`;
+                    container.appendChild(botDiv);
                 } else {
                     container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">Error: ${data.detail}</div></div>`;
                 }
-            } catch(e) {
+            } catch (e) {
                 document.getElementById('typing').remove();
                 container.innerHTML += `<div class="chat-message bot"><div class="chat-bubble">Connection error</div></div>`;
             }
@@ -2586,11 +2773,492 @@
             localStorage.setItem('lang', lang);
         }
 
-        document.getElementById('summarize-text').addEventListener('input', function() {
+        document.getElementById('summarize-text').addEventListener('input', function () {
             document.getElementById('char-count').textContent = this.value.length;
         });
 
+        // ============================================
+        // VOICE INPUT (Speech-to-Text)
+        // ============================================
+        let currentRecognition = null;
+        let currentMicBtn = null;
+
+        function startVoiceInput(targetFieldId, btn) {
+            if (currentRecognition) {
+                currentRecognition.stop();
+                currentRecognition = null;
+                if (currentMicBtn) {
+                    currentMicBtn.classList.remove('recording');
+                    currentMicBtn.textContent = '🎤';
+                }
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                showVoiceFallback(targetFieldId);
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            currentRecognition = recognition;
+            currentMicBtn = btn;
+
+            recognition.lang = localStorage.getItem('bf_lang') || 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 1;
+
+            const field = document.getElementById(targetFieldId);
+
+            btn.classList.add('recording');
+            btn.textContent = '⏹';
+
+            showVoiceStatus('🔴 Listening... Speak now', 'recording');
+
+            recognition.onresult = function (event) {
+                let transcript = '';
+                let isFinal = false;
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        isFinal = true;
+                    }
+                }
+
+                if (field) {
+                    const existing = field.dataset.preVoice || '';
+                    field.value = existing + (existing ? ' ' : '') + transcript;
+                }
+
+                if (isFinal) {
+                    if (field) {
+                        field.dataset.preVoice = field.value;
+                        showVoiceStatus('✅ Voice captured!', 'success');
+                        setTimeout(() => hideVoiceStatus(), 2000);
+                    }
+                }
+            };
+
+            recognition.onerror = function (event) {
+                btn.classList.remove('recording');
+                btn.textContent = '🎤';
+                currentRecognition = null;
+                currentMicBtn = null;
+
+                let errorMsg = 'Voice error. ';
+                if (event.error === 'not-allowed') {
+                    errorMsg += 'Microphone permission denied. Please allow mic access.';
+                } else if (event.error === 'no-speech') {
+                    errorMsg += 'No speech detected. Please try again.';
+                } else if (event.error === 'network') {
+                    errorMsg += 'Network error. Check internet connection.';
+                } else {
+                    errorMsg += `Error: ${event.error}`;
+                }
+                showVoiceStatus(errorMsg, 'error');
+                setTimeout(() => hideVoiceStatus(), 4000);
+            };
+
+            recognition.onend = function () {
+                btn.classList.remove('recording');
+                btn.textContent = '🎤';
+                currentRecognition = null;
+                currentMicBtn = null;
+                const field = document.getElementById(targetFieldId);
+                if (field) delete field.dataset.preVoice;
+            };
+
+            recognition.start();
+        }
+
+        function showVoiceStatus(message, type) {
+            let bar = document.getElementById('voice-status-bar');
+            if (!bar) {
+                bar = document.createElement('div');
+                bar.id = 'voice-status-bar';
+                bar.style.cssText = `
+                  position:fixed; top:72px; left:260px; right:0;
+                  padding:10px 20px; z-index:999; font-size:0.85rem;
+                  display:flex; align-items:center; gap:8px;
+                  transition: all 0.3s;
+                `;
+                document.body.appendChild(bar);
+            }
+
+            const colors = {
+                recording: 'rgba(233,30,140,0.15)',
+                success: 'rgba(16,185,129,0.15)',
+                error: 'rgba(239,68,68,0.15)'
+            };
+            const borders = {
+                recording: 'rgba(233,30,140,0.4)',
+                success: 'rgba(16,185,129,0.4)',
+                error: 'rgba(239,68,68,0.4)'
+            };
+
+            bar.style.background = colors[type] || colors.recording;
+            bar.style.borderBottom = `1px solid ${borders[type] || borders.recording}`;
+            bar.style.color = 'rgba(255,255,255,0.9)';
+            bar.textContent = message;
+            bar.style.display = 'flex';
+        }
+
+        function hideVoiceStatus() {
+            const bar = document.getElementById('voice-status-bar');
+            if (bar) bar.style.display = 'none';
+        }
+
+        function showVoiceFallback(targetFieldId) {
+            const modal = document.createElement('div');
+            modal.id = 'voice-fallback-modal';
+            modal.style.cssText = `
+              position:fixed; inset:0; background:rgba(0,0,0,0.7);
+              display:flex; align-items:center; justify-content:center;
+              z-index:9999; backdrop-filter:blur(8px);
+            `;
+            modal.innerHTML = `
+              <div style="background:#1a1a2e;border:1px solid rgba(255,255,255,0.1);
+                          border-radius:20px;padding:36px;max-width:420px;width:90%;
+                          text-align:center">
+                <div style="font-size:2.5rem;margin-bottom:16px">🎙</div>
+                <h3 style="color:white;font-size:1.2rem;margin-bottom:8px">
+                  Voice Input Unavailable</h3>
+                <p style="color:rgba(255,255,255,0.5);font-size:0.9rem;margin-bottom:24px">
+                  Your browser doesn't support voice input.
+                  Upload a .wav audio file instead, or use Chrome browser.</p>
+                <input type="file" id="voice-file-input" accept=".wav,.mp3,.ogg,.webm"
+                       style="display:none">
+                <div style="display:flex;gap:12px;justify-content:center">
+                  <button onclick="document.getElementById('voice-file-input').click()"
+                          style="padding:10px 24px;background:linear-gradient(135deg,#e91e8c,#7c3aed);
+                                 border:none;border-radius:50px;color:white;cursor:pointer;font-size:0.9rem;font-family:inherit">
+                    📂 Upload Audio File
+                  </button>
+                  <button onclick="document.getElementById('voice-fallback-modal').remove()"
+                          style="padding:10px 20px;background:rgba(255,255,255,0.07);
+                                 border:1px solid rgba(255,255,255,0.1);border-radius:50px;
+                                 color:rgba(255,255,255,0.6);cursor:pointer;font-size:0.9rem;font-family:inherit">
+                    Cancel
+                  </button>
+                </div>
+              </div>`;
+
+            document.getElementById('voice-file-input')?.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                modal.remove();
+                await uploadAudioForTranscription(file, targetFieldId);
+            });
+
+            document.body.appendChild(modal);
+
+            document.getElementById('voice-file-input').addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                modal.remove();
+                await uploadAudioForTranscription(file, targetFieldId);
+            });
+        }
+
+        async function uploadAudioForTranscription(file, targetFieldId) {
+            const field = document.getElementById(targetFieldId);
+            if (!field) return;
+
+            showVoiceStatus('📤 Transcribing audio file...', 'recording');
+
+            const formData = new FormData();
+            formData.append('audio_file', file);
+
+            try {
+                const res = await fetch('http://localhost:8000/api/transcribe-voice', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.success && data.text) {
+                    field.value = data.text;
+                    showVoiceStatus('✅ Audio transcribed successfully!', 'success');
+                    setTimeout(() => hideVoiceStatus(), 3000);
+                } else {
+                    showVoiceStatus('⚠ Transcription failed: ' + (data.detail || 'Unknown error'), 'error');
+                    setTimeout(() => hideVoiceStatus(), 4000);
+                }
+            } catch (err) {
+                showVoiceStatus('⚠ Server error during transcription', 'error');
+                setTimeout(() => hideVoiceStatus(), 4000);
+            }
+        }
+
+        // ============================================
+        // TEXT-TO-SPEECH (TTS)
+        // ============================================
+        let currentUtterance = null;
+        let activeTtsBtn = null;
+        let ttsRate = 1.0;
+        let ttsPaused = false;
+
+        function readAloud(btn) {
+            if (currentUtterance) {
+                ttsStop();
+                if (activeTtsBtn === btn) return;
+            }
+
+            // prefer text stored on button (used for result-card attachments)
+            let text = btn.dataset.text || '';
+            if (!text) {
+                const resultBox = btn.closest('.result-box') || btn.closest('.result-card');
+                const content = resultBox?.querySelector('.result-content');
+                if (content) {
+                    text = content.innerText || content.textContent;
+                } else if (resultBox) {
+                    text = resultBox.innerText || '';
+                }
+            }
+            text = text.trim();
+            if (!text || text.length < 5) return;
+
+            if (!window.speechSynthesis) {
+                alert('Text-to-speech is not supported in your browser. Please use Chrome or Edge.');
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = ttsRate;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const preferred = voices.find(v =>
+                v.name.includes('Google') || v.name.includes('Microsoft')
+            ) || voices.find(v => v.lang.startsWith('en')) || voices[0];
+            if (preferred) utterance.voice = preferred;
+
+            utterance.onstart = () => {
+                activeTtsBtn = btn;
+                btn.textContent = '🔊';
+                btn.classList.add('speaking');
+                showTtsBar();
+                ttsPaused = false;
+            };
+
+            utterance.onend = () => {
+                btn.classList.remove('speaking');
+                btn.textContent = '🔊';
+                activeTtsBtn = null;
+                currentUtterance = null;
+                hideTtsBar();
+                ttsPaused = false;
+            };
+
+            utterance.onerror = (e) => {
+                if (e.error !== 'interrupted') {
+                    console.warn('TTS error:', e.error);
+                }
+                btn.classList.remove('speaking');
+                btn.textContent = '🔊';
+                activeTtsBtn = null;
+                currentUtterance = null;
+                hideTtsBar();
+            };
+
+            currentUtterance = utterance;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function ttsStop() {
+            window.speechSynthesis.cancel();
+            if (activeTtsBtn) {
+                activeTtsBtn.classList.remove('speaking');
+                activeTtsBtn.textContent = '🔊';
+                activeTtsBtn = null;
+            }
+            currentUtterance = null;
+            ttsPaused = false;
+            hideTtsBar();
+        }
+
+        function ttsTogglePause() {
+            const btn = document.getElementById('tts-pause-btn');
+            if (!window.speechSynthesis) return;
+
+            if (ttsPaused) {
+                window.speechSynthesis.resume();
+                ttsPaused = false;
+                if (btn) btn.innerHTML = '⏸ Pause';
+                document.querySelectorAll('.tts-wave span').forEach(s => {
+                    s.style.animationPlayState = 'running';
+                });
+            } else {
+                window.speechSynthesis.pause();
+                ttsPaused = true;
+                if (btn) btn.innerHTML = '▶ Resume';
+                document.querySelectorAll('.tts-wave span').forEach(s => {
+                    s.style.animationPlayState = 'paused';
+                });
+            }
+        }
+
+        function ttsSetRate(rate) {
+            ttsRate = rate;
+
+            document.querySelectorAll('.tts-speed-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            const ids = { 0.75: 'tts-slow', 1.0: 'tts-normal', 1.5: 'tts-fast' };
+            const targetBtn = document.getElementById(ids[rate]);
+            if (targetBtn) targetBtn.classList.add('active');
+
+            if (currentUtterance && window.speechSynthesis.speaking) {
+                const text = currentUtterance.text;
+                const btn = activeTtsBtn;
+                ttsStop();
+                setTimeout(() => {
+                    if (btn) readAloud(btn);
+                }, 100);
+            }
+        }
+
+        function showTtsBar() {
+            let bar = document.getElementById('tts-controls');
+            if (!bar) {
+                bar = document.createElement('div');
+                bar.id = 'tts-controls';
+                bar.innerHTML = `
+                  <div class="tts-bar">
+                    <div class="tts-wave">
+                      <span></span><span></span><span></span>
+                      <span></span><span></span>
+                    </div>
+                    <span class="tts-label">🔊 Reading result aloud...</span>
+                    <div class="tts-actions">
+                      <button onclick="ttsSetRate(0.75)" class="tts-speed-btn" id="tts-slow">0.75×</button>
+                      <button onclick="ttsSetRate(1.0)"  class="tts-speed-btn active" id="tts-normal">1×</button>
+                      <button onclick="ttsSetRate(1.5)"  class="tts-speed-btn" id="tts-fast">1.5×</button>
+                      <button onclick="ttsTogglePause()" class="tts-pause-btn" id="tts-pause-btn">⏸ Pause</button>
+                      <button onclick="ttsStop()" class="tts-stop-btn">⏹ Stop</button>
+                    </div>
+                  </div>`;
+                document.body.appendChild(bar);
+            }
+            bar.style.display = 'block';
+        }
+
+        function hideTtsBar() {
+            const bar = document.getElementById('tts-controls');
+            if (bar) bar.style.display = 'none';
+        }
+
+        // ============================================
+        // ATTACH TTS BUTTONS TO RESULT CARDS
+        // ============================================
+        function addTtsToCard(card) {
+            if (card.dataset.ttsAttached) return;
+            card.dataset.ttsAttached = '1';
+            card.style.position = 'relative';
+            const btn = document.createElement('button');
+            btn.className = 'tts-btn';
+            btn.textContent = '🔊';
+            // capture plain text of card excluding button labels
+            const txt = card.innerText.replace(/🔊/g, '').trim();
+            btn.dataset.text = txt;
+            btn.onclick = function () { readAloud(this); };
+            // position top-right
+            btn.style.position = 'absolute';
+            btn.style.top = '8px';
+            btn.style.right = '8px';
+            card.appendChild(btn);
+        }
+
+        function attachTtsObservers() {
+            const observer = new MutationObserver(muts => {
+                muts.forEach(m => {
+                    m.addedNodes.forEach(node => {
+                        if (node.nodeType === 1 && node.classList.contains('result-card')) {
+                            addTtsToCard(node);
+                        }
+                    });
+                });
+            });
+            observer.observe(document.body, { childList: true, subtree: true });
+            // also attach to existing cards
+            document.querySelectorAll('.result-card').forEach(addTtsToCard);
+        }
+
+        // start observer immediately
+        attachTtsObservers();
+
+        // ============================================
+        // AUTHENTICATION
+        // ============================================
+        function loadUserInfo() {
+            const avatar = localStorage.getItem('bf_avatar') || '?';
+            const name = localStorage.getItem('bf_full_name') || 'User';
+            const username = localStorage.getItem('bf_username') || '';
+            const role = localStorage.getItem('bf_role') || 'user';
+            const color = localStorage.getItem('bf_color') || '#e91e8c';
+
+            const topUser = document.getElementById('topbar-user');
+
+            if (topUser) {
+                topUser.innerHTML = `
+                  <span style="width:26px;height:26px;border-radius:50%;
+                               background:${color};display:inline-flex;
+                               align-items:center;justify-content:center;
+                               font-size:0.75rem;font-weight:700;color:white;
+                               margin-right:6px">${avatar}</span>
+                  <span style="color:rgba(255,255,255,0.7);font-size:0.85rem">${username}</span>`;
+            }
+        }
+
+        async function doLogout() {
+            try {
+                await fetch('http://localhost:8000/api/logout', { method: 'POST' });
+            } catch (e) {
+                // Even if server request fails, clear local session
+            }
+            // Clear ALL session data from localStorage
+            localStorage.removeItem('bf_token');
+            localStorage.removeItem('bf_user_id');
+            localStorage.removeItem('bf_username');
+            localStorage.removeItem('bf_full_name');
+            localStorage.removeItem('bf_role');
+            localStorage.removeItem('bf_avatar');
+            localStorage.removeItem('bf_color');
+            // Redirect to login
+            window.location.href = '/login';
+        }
+
+        // ============================================
+        // CHAT MESSAGE TTS
+        // ============================================
+        function readMsgAloud(btn) {
+            const bubbleContent = btn.closest('.bubble')?.querySelector('.bubble-content');
+            if (!bubbleContent) return;
+
+            const fakeBox = document.createElement('div');
+            fakeBox.className = 'result-box';
+            const fakeContent = document.createElement('div');
+            fakeContent.className = 'result-content';
+            fakeContent.textContent = bubbleContent.innerText;
+            fakeBox.appendChild(fakeContent);
+
+            btn.closest('.message').appendChild(fakeBox);
+            readAloud(btn);
+            btn.closest('.message').removeChild(fakeBox);
+        }
+
+        // Load voices on startup
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
+
         // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserInfo();
+        });
+
         switchTab('brand');
 
         // Health check
@@ -2599,4 +3267,5 @@
         }).catch(e => console.log('Server not running'));
     </script>
 </body>
+
 </html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizForge Login — AI-Powered Brand Studio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 50%, #0a1628 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Background Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 350px;
+            height: 350px;
+            background: rgba(233, 30, 140, 0.2);
+            top: -100px;
+            left: -80px;
+            animation: floatOrb 9s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 280px;
+            height: 280px;
+            background: rgba(124, 58, 237, 0.18);
+            bottom: -80px;
+            right: -60px;
+            animation: floatOrb 12s ease-in-out infinite 3s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(6, 182, 212, 0.15);
+            top: 50%;
+            left: 60%;
+            animation: floatOrb 7s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-30px) rotate(8deg);
+            }
+
+            66% {
+                transform: translateY(15px) rotate(-5deg);
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -400% 0;
+            }
+
+            100% {
+                background-position: 400% 0;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes micPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(233, 30, 140, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(233, 30, 140, 0);
+            }
+        }
+
+        /* Content Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Logo Section */
+        .logo-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .logo-text {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 50%, #06b6d4 100%);
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .logo-sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        /* Login Card */
+        .login-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px 44px;
+            width: 100%;
+            max-width: 420px;
+            margin: 32px auto;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(233, 30, 140, 0.1);
+            animation: fadeSlideUp 0.7s ease both;
+        }
+
+        .card-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .card-sub {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        /* Error Box */
+        .error-box {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 10px;
+            padding: 12px 16px;
+            color: #fca5a5;
+            font-size: 0.88rem;
+            margin-bottom: 16px;
+            display: none;
+            animation: fadeSlideUp 0.3s ease;
+        }
+
+        /* Form Group */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 13px 18px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus {
+            border-color: #e91e8c;
+            box-shadow: 0 0 0 3px rgba(233, 30, 140, 0.15);
+        }
+
+        .form-group input[type="text"]::placeholder,
+        .form-group input[type="password"]::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 48px;
+        }
+
+        .eye-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0;
+            z-index: 10;
+            transition: color 0.2s;
+        }
+
+        .eye-btn:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Button */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e91e8c, #7c3aed);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            box-shadow: 0 8px 30px rgba(233, 30, 140, 0.35);
+            letter-spacing: 0.02em;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(233, 30, 140, 0.45);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login.loading {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .btn-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Demo Accounts Section */
+        .demo-accounts {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .demo-title {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .demo-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .avatar-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .creds {
+            flex: 1;
+        }
+
+        .username-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .password-text {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+        }
+
+        .quick-fill-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .quick-fill-btn:hover {
+            background: rgba(233, 30, 140, 0.15);
+            border-color: rgba(233, 30, 140, 0.4);
+            color: #e91e8c;
+        }
+
+        /* Footer */
+        .footer-text {
+            margin-top: 24px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Content -->
+    <div class="container">
+        <!-- Logo -->
+        <div style="margin-bottom: 32px;">
+            <span class="logo-icon">🔮</span>
+            <h1 class="logo-text">BizForge</h1>
+            <p class="logo-sub">AI-Powered Brand Studio</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="login-card">
+            <h2 class="card-title">Welcome Back 👋</h2>
+            <p class="card-sub">Sign in to continue to BizForge</p>
+
+            <!-- Error Message -->
+            <div id="error-box" class="error-box"></div>
+
+            <!-- Login Form -->
+            <div class="form-group">
+                <label for="username-input">Username</label>
+                <input type="text" id="username-input" placeholder="Enter your username" autocomplete="username">
+            </div>
+
+            <div class="form-group password-wrapper">
+                <label for="password-input">Password</label>
+                <input type="password" id="password-input" placeholder="Enter your password"
+                    autocomplete="current-password">
+                <button class="eye-btn" id="eye-btn" onclick="togglePassword()" type="button">👁</button>
+            </div>
+
+            <!-- Login Button -->
+            <button class="btn-login" id="login-btn" onclick="doLogin()">
+                Sign In →
+            </button>
+
+            <!-- Demo Accounts -->
+            <div class="demo-accounts">
+                <div class="demo-title">Demo Accounts</div>
+
+                <div class="demo-row">
+                    <div class="avatar-dot" style="background-color: #e91e8c;">A</div>
+                    <div class="creds">
+                        <div class="username-text">admin / admin123</div>
+                        <div class="password-text">Admin</div>
+                    </div>
+                    <button class="quick-fill-btn" onclick="fillDemo('admin', 'admin123')">Use</button>
+                </div>
+
+                <div class="demo-row">
+                    <div class="avatar-dot" style="background-color: #7c3aed;">D</div>
+                    <div class="creds">
+                        <div class="username-text">demo / demo123</div>
+                        <div class="password-text">Demo User</div>
+                    </div>
+                    <button class="quick-fill-btn" onclick="fillDemo('demo', 'demo123')">Use</button>
+                </div>
+
+                <div class="demo-row">
+                    <div class="avatar-dot" style="background-color: #06b6d4;">B</div>
+                    <div class="creds">
+                        <div class="username-text">brand / brand123</div>
+                        <div class="password-text">Brand Manager</div>
+                    </div>
+                    <button class="quick-fill-btn" onclick="fillDemo('brand', 'brand123')">Use</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer-text">© 2025 BizForge — AI-Powered Brand Studio</div>
+    </div>
+
+    <script>
+        const API = 'http://localhost:8000';
+
+        // Show/hide password toggle
+        function togglePassword() {
+            const input = document.getElementById('password-input');
+            const btn = document.getElementById('eye-btn');
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                btn.textContent = '👁';
+            }
+        }
+
+        // Fill demo credentials
+        function fillDemo(username, password) {
+            document.getElementById('username-input').value = username;
+            document.getElementById('password-input').value = password;
+            document.getElementById('username-input').focus();
+        }
+
+        // Show error message
+        function showError(msg) {
+            const box = document.getElementById('error-box');
+            box.textContent = '⚠ ' + msg;
+            box.style.display = 'block';
+        }
+
+        // Hide error
+        function hideError() {
+            document.getElementById('error-box').style.display = 'none';
+        }
+
+        // Set button to loading state
+        function setLoading(loading) {
+            const btn = document.getElementById('login-btn');
+            if (loading) {
+                btn.classList.add('loading');
+                btn.innerHTML = '<span class="btn-spinner"></span> Signing in...';
+                btn.disabled = true;
+            } else {
+                btn.classList.remove('loading');
+                btn.innerHTML = 'Sign In →';
+                btn.disabled = false;
+            }
+        }
+
+        // Main login function
+        async function doLogin() {
+            const username = document.getElementById('username-input').value.trim();
+            const password = document.getElementById('password-input').value;
+
+            // Client-side validation
+            if (!username) {
+                showError('Please enter your username.');
+                document.getElementById('username-input').focus();
+                return;
+            }
+            if (!password) {
+                showError('Please enter your password.');
+                document.getElementById('password-input').focus();
+                return;
+            }
+
+            hideError();
+            setLoading(true);
+
+            try {
+                const response = await fetch(`${API}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Save session to localStorage
+                    localStorage.setItem('bf_token', data.token);
+                    localStorage.setItem('bf_user_id', data.user_id);
+                    localStorage.setItem('bf_username', data.username);
+                    localStorage.setItem('bf_full_name', data.full_name);
+                    localStorage.setItem('bf_role', data.role);
+                    localStorage.setItem('bf_avatar', data.avatar);
+                    localStorage.setItem('bf_color', data.theme_color);
+
+                    // Show success state briefly before redirect
+                    const btn = document.getElementById('login-btn');
+                    btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
+                    btn.innerHTML = '✓ Welcome, ' + data.full_name + '!';
+
+                    // Redirect to main app after 800ms
+                    setTimeout(() => {
+                        window.location.href = '/branding.html';
+                    }, 800);
+
+                } else {
+                    // Show error from server
+                    setLoading(false);
+                    showError(data.detail || 'Invalid username or password.');
+                }
+
+            } catch (err) {
+                setLoading(false);
+                showError('Cannot connect to server. Make sure backend is running.');
+            }
+        }
+
+        // Check if already logged in — redirect away from login page
+        function checkAlreadyLoggedIn() {
+            const token = localStorage.getItem('bf_token');
+            if (token) {
+                // Verify token is still valid
+                fetch(`${API}/api/verify-session?token=${token}`)
+                    .then(r => r.json())
+                    .then(d => {
+                        if (d.success) {
+                            window.location.href = '/branding.html';
+                        }
+                    })
+                    .catch(() => {
+                        // If server unreachable, stay on login page
+                    });
+            }
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAlreadyLoggedIn();
+
+            // Login on Enter key in any input
+            document.getElementById('username-input').addEventListener('keydown', e => {
+                if (e.key === 'Enter') {
+                    document.getElementById('password-input').focus();
+                }
+            });
+            document.getElementById('password-input').addEventListener('keydown', e => {
+                if (e.key === 'Enter') doLogin();
+            });
+
+            // Clear error when typing
+            document.getElementById('username-input').addEventListener('input', hideError);
+            document.getElementById('password-input').addEventListener('input', hideError);
+        });
+    </script>
+</body>
+
+</html>
